@@ -23,6 +23,7 @@ namespace Gcpe.ENewsletters.Data.Entity
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<user>();
         }
 
         public virtual DbSet<approver> approvers { get; set; }
