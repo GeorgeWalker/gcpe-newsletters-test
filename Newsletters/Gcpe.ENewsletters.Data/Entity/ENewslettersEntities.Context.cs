@@ -21,6 +21,10 @@ namespace Gcpe.ENewsletters.Data.Entity
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
+
         public virtual DbSet<approver> approvers { get; set; }
         public virtual DbSet<article> articles { get; set; }
         public virtual DbSet<boxcontent> boxcontents { get; set; }
