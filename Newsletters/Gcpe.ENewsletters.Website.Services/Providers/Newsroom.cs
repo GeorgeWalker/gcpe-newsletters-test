@@ -32,7 +32,7 @@ namespace Gcpe.ENewsletters.Providers
                         (
                         from nid in /* This gets a distinct list of newsletterIDs and the latest published date */
                             (
-                                from e in db.editions.Where(f => f.active == (int)EditionStatus.Approved
+                                from e in db.edition.Where(f => f.active == (int)EditionStatus.Approved
                                     && f.displayPublic == true
                                     && f.originalPublishDt <= DateTime.Now
                                     && f.originalPublishDt != null
@@ -45,15 +45,15 @@ namespace Gcpe.ENewsletters.Providers
                                     LatestPublishDate = g.Max(e => e.originalPublishDt).Value /* latest publish date */
                                 }
                             )
-                        join latestEdition in db.editions on //nid.EditionID equals latestEdition.editionid
+                        join latestEdition in db.edition on //nid.EditionID equals latestEdition.editionid
                             new { nid.NewsletterID, nid.LatestPublishDate }
                             equals new { NewsletterID = latestEdition.newsletterid.Value, LatestPublishDate = latestEdition.originalPublishDt.Value }
                             /* Now we grab that edition only by joining on both columns from nid */
 
-                        join ef in db.folders on latestEdition.folderid equals ef.folderid
-                        join n in db.newsletters.Where(f => f.nlStatus == (int)NewsletterStatus.Active || f.nlStatus == (int)NewsletterStatus.In_Active) on nid.NewsletterID equals n.newsletterid /* newsletter is active or inactive */
-                        join nf in db.folders on n.folderid equals nf.folderid /* get the folder name for creating the URL */
-                        join u in db.usergroups.Where(f => f.active == true) on n.ownerusergroupid equals u.usergroupid /* groups (ministries) that are active */
+                        join ef in db.folder on latestEdition.folderid equals ef.folderid
+                        join n in db.newsletter.Where(f => f.nlStatus == (int)NewsletterStatus.Active || f.nlStatus == (int)NewsletterStatus.In_Active) on nid.NewsletterID equals n.newsletterid /* newsletter is active or inactive */
+                        join nf in db.folder on n.folderid equals nf.folderid /* get the folder name for creating the URL */
+                        join u in db.usergroup.Where(f => f.active == true) on n.ownerusergroupid equals u.usergroupid /* groups (ministries) that are active */
 
                         select new PublicNewsletterListings
                         {
@@ -84,7 +84,7 @@ namespace Gcpe.ENewsletters.Providers
         public Tuple<string, string>[] GetNewslettersByMinistry(int[] newsletterIds)
         {
             
-                var results = (from c in db.newsletters
+                var results = (from c in db.newsletter
                                where newsletterIds.Contains(c.newsletterid)
                                select new { key = c.key, name = c.name }
                         );
@@ -110,9 +110,9 @@ namespace Gcpe.ENewsletters.Providers
 
                 item =
                         (
-                        from n in db.newsletters.Where(f => f.nlStatus == (int)NewsletterStatus.Active || f.nlStatus == (int)NewsletterStatus.In_Active) /* newsletter is active or inactive */
-                        join nf in db.folders on n.folderid equals nf.folderid /* get the folder name for creating the URL */
-                        join u in db.usergroups.Where(f => f.active == true) on n.ownerusergroupid equals u.usergroupid /* groups (ministries) that are active */
+                        from n in db.newsletter.Where(f => f.nlStatus == (int)NewsletterStatus.Active || f.nlStatus == (int)NewsletterStatus.In_Active) /* newsletter is active or inactive */
+                        join nf in db.folder on n.folderid equals nf.folderid /* get the folder name for creating the URL */
+                        join u in db.usergroup.Where(f => f.active == true) on n.ownerusergroupid equals u.usergroupid /* groups (ministries) that are active */
                         where n.newsletterid == newsletterId
                         select new Newsletter
                         {
@@ -133,10 +133,10 @@ namespace Gcpe.ENewsletters.Providers
         {
             List<PublicNewsletterListings> lst = new List<PublicNewsletterListings>();
 
-                return (from e in db.editions
-                        join ef in db.folders on e.folderid equals ef.folderid
-                        join n in db.newsletters on e.newsletterid equals n.newsletterid
-                        join nf in db.folders on n.folderid equals nf.folderid
+                return (from e in db.edition
+                        join ef in db.folder on e.folderid equals ef.folderid
+                        join n in db.newsletter on e.newsletterid equals n.newsletterid
+                        join nf in db.folder on n.folderid equals nf.folderid
                         where e.newsletterid == newsletterId
                         && e.active == (int)EditionStatus.Approved
                         && e.displayPublic == true
@@ -155,10 +155,10 @@ namespace Gcpe.ENewsletters.Providers
         {
             List<PublicNewsletterListings> lst = new List<PublicNewsletterListings>();
 
-                return (from e in db.editions
-                        join ef in db.folders on e.folderid equals ef.folderid
-                        join n in db.newsletters on e.newsletterid equals n.newsletterid
-                        join nf in db.folders on n.folderid equals nf.folderid
+                return (from e in db.edition
+                        join ef in db.folder on e.folderid equals ef.folderid
+                        join n in db.newsletter on e.newsletterid equals n.newsletterid
+                        join nf in db.folder on n.folderid equals nf.folderid
                         where e.active == (int)EditionStatus.Approved
                         orderby e.originalPublishDt descending
                         select new EditionList
@@ -224,11 +224,11 @@ namespace Gcpe.ENewsletters.Providers
             List<PublicNewsletterListings> lst = new List<PublicNewsletterListings>();
             
                 return
-                         (from art in db.articles.Where(x => x.active != (int)ArticleStatus.Deleted)
-                          join ed in db.editions.Where(x => x.active != (int)EditionStatus.Deleted) on art.editionid equals ed.editionid
-                          join nl in db.newsletters on ed.newsletterid equals nl.newsletterid
-                          join f in db.folders on ed.folderid equals f.folderid
-                          join f1 in db.folders on f.parentfolderid equals f1.folderid
+                         (from art in db.article.Where(x => x.active != (int)ArticleStatus.Deleted)
+                          join ed in db.edition.Where(x => x.active != (int)EditionStatus.Deleted) on art.editionid equals ed.editionid
+                          join nl in db.newsletter on ed.newsletterid equals nl.newsletterid
+                          join f in db.folder on ed.folderid equals f.folderid
+                          join f1 in db.folder on f.parentfolderid equals f1.folderid
                           select new ArticleList
                           {
                               ArticleID = art.articleid,
@@ -257,8 +257,8 @@ namespace Gcpe.ENewsletters.Providers
             
                 return
                     (
-                        from n in db.newsletters
-                        join e in db.editions on n.newsletterid equals e.newsletterid
+                        from n in db.newsletter
+                        join e in db.edition on n.newsletterid equals e.newsletterid
                         where
                         (
                             n.nlStatus == (int)NewsletterStatus.Active  /* newsletter is active or inactive */

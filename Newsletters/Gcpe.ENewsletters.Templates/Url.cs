@@ -21,7 +21,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                int? folderId = (from n in db.newsletters
+                int? folderId = (from n in db.newsletter
                                  where n.newsletterid == newsletterId
                                  select n.folderid).FirstOrDefault();
 
@@ -49,15 +49,15 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                string guid = (from e in db.editions
+                string guid = (from e in db.edition
                                where e.editionid == eid
                                select e.key).FirstOrDefault().ToString().ToLower();
 
-                int newsletterID = (from e in db.editions
+                int newsletterID = (from e in db.edition
                                     where e.editionid == eid
                                     select e.newsletterid).FirstOrDefault().Value;
 
-                string newsletterKey = (from e in db.newsletters
+                string newsletterKey = (from e in db.newsletter
                                         where e.newsletterid == newsletterID
                                         select e.key).FirstOrDefault();
 
@@ -83,9 +83,9 @@ namespace Gcpe.ENewsletters.Templates
                 int folderid = -1;
                 int? fromDb;
                 if (id.Contains("."))
-                    fromDb = (from f in db.files.Where(x => x.fname.Contains(id)) select f.folderid).FirstOrDefault();
+                    fromDb = (from f in db.file.Where(x => x.fname.Contains(id)) select f.folderid).FirstOrDefault();
                 else
-                    fromDb = (from f in db.files where f.guid == g select f.folderid).FirstOrDefault();
+                    fromDb = (from f in db.file where f.guid == g select f.folderid).FirstOrDefault();
 
                 if (fromDb.HasValue)
                     folderid = fromDb.Value;
@@ -125,8 +125,8 @@ namespace Gcpe.ENewsletters.Templates
                 int folderId = -1;
                 string artKey = string.Empty;
 
-                var art = (from a in db.articles
-                           join e in db.editions on a.editionid equals e.editionid
+                var art = (from a in db.article
+                           join e in db.edition on a.editionid equals e.editionid
                            where a.articleid == aId
                            select new
                            {
@@ -159,7 +159,7 @@ namespace Gcpe.ENewsletters.Templates
             {
                 while (id >= 0)
                 {
-                    folder fs = (from f in db.folders
+                    folder fs = (from f in db.folder
                                  where f.folderid == id
                                  select f).FirstOrDefault();
 
@@ -194,9 +194,9 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                strPath = (from f in db.folders
-                           join N in db.newsletters on f.parentfolderid equals N.folderid
-                           join E in db.editions on f.folderid equals E.folderid
+                strPath = (from f in db.folder
+                           join N in db.newsletter on f.parentfolderid equals N.folderid
+                           join E in db.edition on f.folderid equals E.folderid
                            where f.folderid == folderid
                            select N.key + "/" + E.key + "/"
                              ).FirstOrDefault();
@@ -221,9 +221,9 @@ namespace Gcpe.ENewsletters.Templates
                     int it = -1;
                     int? fromDb;
                     if (guid.Contains("."))
-                        fromDb = (from f in db.files.Where(x => x.fname.Contains(guid)) select f.type).FirstOrDefault();
+                        fromDb = (from f in db.file.Where(x => x.fname.Contains(guid)) select f.type).FirstOrDefault();
                     else
-                        fromDb = (from f in db.files where f.guid == g select f.type).FirstOrDefault();
+                        fromDb = (from f in db.file where f.guid == g select f.type).FirstOrDefault();
 
                     if (fromDb.HasValue)
                         it = fromDb.Value;
@@ -249,7 +249,7 @@ namespace Gcpe.ENewsletters.Templates
                 Guid g = new Guid(guid);
                 using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
                 {
-                    file imgFile = (from f in db.files where f.guid == g select f).FirstOrDefault();
+                    file imgFile = (from f in db.file where f.guid == g select f).FirstOrDefault();
 
                     if (imgFile != null)
                     {
@@ -273,7 +273,7 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                file imgFile = (from f in db.files.Where(x => x.fname.Contains(name)) select f).FirstOrDefault();
+                file imgFile = (from f in db.file.Where(x => x.fname.Contains(name)) select f).FirstOrDefault();
 
                 if (imgFile != null)
                 {
@@ -324,10 +324,10 @@ namespace Gcpe.ENewsletters.Templates
                     orgFolderName = pathComponents[1];
 
                     // Has the Group File Name in the URL
-                    eId = (from e in db.editions.Where(x => x.active != 99)
-                           join editionfolder in db.folders on e.folderid equals editionfolder.folderid
-                           join newsfolder in db.folders on editionfolder.parentfolderid equals newsfolder.folderid
-                           join usergroupfolder in db.folders on newsfolder.parentfolderid equals usergroupfolder.folderid
+                    eId = (from e in db.edition.Where(x => x.active != 99)
+                           join editionfolder in db.folder on e.folderid equals editionfolder.folderid
+                           join newsfolder in db.folder on editionfolder.parentfolderid equals newsfolder.folderid
+                           join usergroupfolder in db.folder on newsfolder.parentfolderid equals usergroupfolder.folderid
                            where editionfolder.description == editionFolderName
                                && newsfolder.description == newsletterFolderName
                                && usergroupfolder.description == orgFolderName
@@ -339,9 +339,9 @@ namespace Gcpe.ENewsletters.Templates
                     newsletterFolderName = pathComponents[1];
 
                     // Does not have the Group File Name in the URL
-                    eId = (from e in db.editions.Where(x => x.active != 99)
-                           join editionfolder in db.folders on e.folderid equals editionfolder.folderid
-                           join newsfolder in db.folders on editionfolder.parentfolderid equals newsfolder.folderid
+                    eId = (from e in db.edition.Where(x => x.active != 99)
+                           join editionfolder in db.folder on e.folderid equals editionfolder.folderid
+                           join newsfolder in db.folder on editionfolder.parentfolderid equals newsfolder.folderid
                            where editionfolder.description == editionFolderName
                                && newsfolder.description == newsletterFolderName
                            select e.editionid).FirstOrDefault();
@@ -363,8 +363,8 @@ namespace Gcpe.ENewsletters.Templates
                 var id = GetEditionIdFromEncodedUrl(path);
                 using (var db = TemplateDb.eNewslettersEntities)
                 {
-                    var edition = (from e in db.editions
-                                   join n in db.newsletters on e.newsletterid equals n.newsletterid
+                    var edition = (from e in db.edition
+                                   join n in db.newsletter on e.newsletterid equals n.newsletterid
                                    where e.editionid == id
                                    select new { n, e }).SingleOrDefault();
 
@@ -409,11 +409,11 @@ namespace Gcpe.ENewsletters.Templates
                     articleFolderName = pathComponents[4];
 
                     // Has the Group File Name in the URL
-                    aId = (from a in db.articles.Where(x => x.active != 99)
-                           join e in db.editions.Where(x => x.active != 99) on a.editionid equals e.editionid
-                           join editionfolder in db.folders on e.folderid equals editionfolder.folderid
-                           join newsfolder in db.folders on editionfolder.parentfolderid equals newsfolder.folderid
-                           join usergroupfolder in db.folders on newsfolder.parentfolderid equals usergroupfolder.folderid
+                    aId = (from a in db.article.Where(x => x.active != 99)
+                           join e in db.edition.Where(x => x.active != 99) on a.editionid equals e.editionid
+                           join editionfolder in db.folder on e.folderid equals editionfolder.folderid
+                           join newsfolder in db.folder on editionfolder.parentfolderid equals newsfolder.folderid
+                           join usergroupfolder in db.folder on newsfolder.parentfolderid equals usergroupfolder.folderid
                            where editionfolder.description == editionFolderName
                            && newsfolder.description == newsletterFolderName
                            && usergroupfolder.description == orgFolderName
@@ -427,10 +427,10 @@ namespace Gcpe.ENewsletters.Templates
                     articleFolderName = pathComponents[3];
 
                     // Does not have the Group File Name in the URL
-                    aId = (from a in db.articles //.Where(x => x.active != 99)
-                           join e in db.editions.Where(x => x.active != 99) on a.editionid equals e.editionid
-                           join editionfolder in db.folders on e.folderid equals editionfolder.folderid
-                           join newsfolder in db.folders on editionfolder.parentfolderid equals newsfolder.folderid
+                    aId = (from a in db.article //.Where(x => x.active != 99)
+                           join e in db.edition.Where(x => x.active != 99) on a.editionid equals e.editionid
+                           join editionfolder in db.folder on e.folderid equals editionfolder.folderid
+                           join newsfolder in db.folder on editionfolder.parentfolderid equals newsfolder.folderid
                            where editionfolder.description == editionFolderName
                            && newsfolder.description == newsletterFolderName
                            && a.foldername == articleFolderName
@@ -463,9 +463,9 @@ namespace Gcpe.ENewsletters.Templates
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 int aId;
-                aId = (from art in db.articles.Where(x => x.active != 99)
-                       join ed in db.editions.Where(x => x.active != 99) on art.editionid equals ed.editionid
-                       join newsletter in db.newsletters on ed.newsletterid equals newsletter.newsletterid
+                aId = (from art in db.article.Where(x => x.active != 99)
+                       join ed in db.edition.Where(x => x.active != 99) on art.editionid equals ed.editionid
+                       join newsletter in db.newsletter on ed.newsletterid equals newsletter.newsletterid
                        where art.key == articleKey
                        && ed.key == editionKey
                        && newsletter.key == newsletterKey
@@ -481,7 +481,7 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                newsletterid = (from newsletter in db.newsletters
+                newsletterid = (from newsletter in db.newsletter
                                 where newsletter.key == key && newsletter.nlStatus != (int)NewsletterStatus.Deleted
                                 select newsletter.newsletterid).SingleOrDefault();
             }
@@ -495,8 +495,8 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                editionId = (from edition in db.editions
-                             join newsletter in db.newsletters on edition.newsletterid equals newsletter.newsletterid
+                editionId = (from edition in db.edition
+                             join newsletter in db.newsletter on edition.newsletterid equals newsletter.newsletterid
                              where newsletter.key == newsletterKey && edition.key == editionKey && edition.active != (int)EditionStatus.Deleted
                              select edition.editionid).SingleOrDefault();
             }

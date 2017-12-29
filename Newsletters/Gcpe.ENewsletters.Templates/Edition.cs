@@ -69,7 +69,7 @@ namespace Gcpe.ENewsletters.Templates
             int newsletterTemplateId;
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                var x = (from e in db.editions
+                var x = (from e in db.edition
                          where e.editionid == editionId
                          select new
                          {
@@ -566,7 +566,7 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                var file = (from f in db.files
+                var file = (from f in db.file
                             where f.guid == new Guid(id)
                             select f).FirstOrDefault();
                 if (file != null)

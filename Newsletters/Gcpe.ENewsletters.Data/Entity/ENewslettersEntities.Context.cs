@@ -23,36 +23,47 @@ namespace Gcpe.ENewsletters.Data.Entity
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // unknown foreign key reference
             modelBuilder.Ignore<user>();
+            // following are all missing a primary key.
             modelBuilder.Ignore<NewsletterTemplatesBannerImage>();
+            modelBuilder.Ignore<NewsletterTemplatesFooterImage>();
+            modelBuilder.Ignore<approver>();
+            modelBuilder.Ignore<htmlcomponent>();
+            modelBuilder.Ignore<NewsletterTemplatesFooterLink>();
+            modelBuilder.Ignore<publishstatu>();
+            modelBuilder.Ignore<sysdiagram>();
+            
+
+
         }
 
-        public virtual DbSet<approver> approvers { get; set; }
-        public virtual DbSet<article> articles { get; set; }
-        public virtual DbSet<boxcontent> boxcontents { get; set; }
-        public virtual DbSet<boxtype> boxtypes { get; set; }
-        public virtual DbSet<color> colors { get; set; }
-        public virtual DbSet<cornertype> cornertypes { get; set; }
-        public virtual DbSet<edition> editions { get; set; }
-        public virtual DbSet<file> files { get; set; }
-        public virtual DbSet<folder> folders { get; set; }
-        public virtual DbSet<htmlcomponent> htmlcomponents { get; set; }
-        public virtual DbSet<newsletter> newsletters { get; set; }
-        public virtual DbSet<newsletterbox> newsletterboxes { get; set; }
-        public virtual DbSet<newslettertemplate> newslettertemplates { get; set; }
-        public virtual DbSet<NewsletterTemplatesBannerImage> NewsletterTemplatesBannerImages { get; set; }
-        public virtual DbSet<NewsletterTemplatesBox> NewsletterTemplatesBoxes { get; set; }
-        public virtual DbSet<NewsletterTemplatesFooterImage> NewsletterTemplatesFooterImages { get; set; }
-        public virtual DbSet<NewsletterTemplatesFooterLink> NewsletterTemplatesFooterLinks { get; set; }
-        public virtual DbSet<NewsletterUserAuthor> NewsletterUserAuthors { get; set; }
-        public virtual DbSet<NewsletterUserDistributor> NewsletterUserDistributors { get; set; }
-        public virtual DbSet<PageCheck> PageChecks { get; set; }
-        public virtual DbSet<publishstatu> publishstatus { get; set; }
-        public virtual DbSet<readcounter> readcounters { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<upload> uploads { get; set; }
-        public virtual DbSet<user> users { get; set; }
-        public virtual DbSet<usergroup> usergroups { get; set; }
+        public virtual DbSet<approver> approver { get; set; }
+        public virtual DbSet<article> article { get; set; }
+        public virtual DbSet<boxcontent> boxcontent { get; set; }
+        public virtual DbSet<boxtype> boxtype { get; set; }
+        public virtual DbSet<color> color { get; set; }
+        public virtual DbSet<cornertype> cornertype { get; set; }
+        public virtual DbSet<edition> edition { get; set; }
+        public virtual DbSet<file> file { get; set; }
+        public virtual DbSet<folder> folder { get; set; }
+        public virtual DbSet<htmlcomponent> htmlcomponent { get; set; }
+        public virtual DbSet<newsletter> newsletter { get; set; }
+        public virtual DbSet<newsletterbox> newsletterbox { get; set; }
+        public virtual DbSet<newslettertemplate> newslettertemplate { get; set; }
+        public virtual DbSet<NewsletterTemplatesBannerImage> NewsletterTemplatesBannerImage { get; set; }
+        public virtual DbSet<NewsletterTemplatesBox> NewsletterTemplatesBox { get; set; }
+        public virtual DbSet<NewsletterTemplatesFooterImage> NewsletterTemplatesFooterImage { get; set; }
+        public virtual DbSet<NewsletterTemplatesFooterLink> NewsletterTemplatesFooterLink { get; set; }
+        public virtual DbSet<NewsletterUserAuthor> NewsletterUserAuthor { get; set; }
+        public virtual DbSet<NewsletterUserDistributor> NewsletterUserDistributor { get; set; }
+        public virtual DbSet<PageCheck> PageCheck { get; set; }
+        public virtual DbSet<publishstatu> publishstatu { get; set; }
+        public virtual DbSet<readcounter> readcounter { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagram { get; set; }
+        public virtual DbSet<upload> upload { get; set; }
+        public virtual DbSet<user> user { get; set; }
+        public virtual DbSet<usergroup> usergroup { get; set; }
         public virtual DbSet<edition_history> edition_history { get; set; }
     }
 }

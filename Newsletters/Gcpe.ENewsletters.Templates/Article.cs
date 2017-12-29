@@ -41,7 +41,7 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                article a = (from x in db.articles where x.articleid == articleId select x).FirstOrDefault();
+                article a = (from x in db.article where x.articleid == articleId select x).FirstOrDefault();
                 int editionID = a.editionid.Value;
                 articleName = a.name;
                 articleDate = a.aritcledate;
@@ -73,9 +73,9 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                newslettertemplate template = (from a in db.articles
-                                               join e in db.editions on a.editionid equals e.editionid
-                                               join nt in db.newslettertemplates on e.newslettertemplateid equals nt.newslettertemplateid
+                newslettertemplate template = (from a in db.article
+                                               join e in db.edition on a.editionid equals e.editionid
+                                               join nt in db.newslettertemplate on e.newslettertemplateid equals nt.newslettertemplateid
                                                where a.articleid == articleId
                                                select nt).FirstOrDefault();
 

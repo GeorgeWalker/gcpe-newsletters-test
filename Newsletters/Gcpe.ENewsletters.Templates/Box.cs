@@ -34,9 +34,9 @@ namespace Gcpe.ENewsletters.Templates
             BoxStyle bxStyle;
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                var dbVals = (from newsbx in db.newsletterboxes
+                var dbVals = (from newsbx in db.newsletterbox
 
-                              join c in db.colors on newsbx.bgcolorid equals c.colorid into cs
+                              join c in db.color on newsbx.bgcolorid equals c.colorid into cs
                               from backgroundcolor in cs.DefaultIfEmpty()
 
                               where newsbx.newsletterboxid == newsletterBoxId
@@ -564,13 +564,13 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                var items = (from b in db.boxcontents
-                             join newsbx in db.newsletterboxes.Where(x => x.active == true) on b.newsletterboxid equals newsbx.newsletterboxid
+                var items = (from b in db.boxcontent
+                             join newsbx in db.newsletterbox.Where(x => x.active == true) on b.newsletterboxid equals newsbx.newsletterboxid
 
-                             join h in db.htmlcomponents on b.htmlcomid equals h.htmlcomid into hs
+                             join h in db.htmlcomponent on b.htmlcomid equals h.htmlcomid into hs
                              from hbox in hs.DefaultIfEmpty()
 
-                             join c in db.colors on newsbx.bgcolorid equals c.colorid into cs
+                             join c in db.color on newsbx.bgcolorid equals c.colorid into cs
                              from backgroundcolor in cs.DefaultIfEmpty()
 
                              where b.editionid == editionid
@@ -613,14 +613,14 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                var items = (from b in db.boxcontents
+                var items = (from b in db.boxcontent
 
-                             join newsbx in db.newsletterboxes.Where(x => x.active == true) on b.newsletterboxid equals newsbx.newsletterboxid
+                             join newsbx in db.newsletterbox.Where(x => x.active == true) on b.newsletterboxid equals newsbx.newsletterboxid
 
-                             join h in db.htmlcomponents on b.htmlcomid equals h.htmlcomid into hs
+                             join h in db.htmlcomponent on b.htmlcomid equals h.htmlcomid into hs
                              from hbox in hs.DefaultIfEmpty()
 
-                             join c in db.colors on newsbx.bgcolorid equals c.colorid into cs
+                             join c in db.color on newsbx.bgcolorid equals c.colorid into cs
                              from backgroundcolor in cs.DefaultIfEmpty()
 
                              where b.editionid == editionid
@@ -664,14 +664,14 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                var items = (from b in db.boxcontents
+                var items = (from b in db.boxcontent
 
-                             join newsbx in db.newsletterboxes.Where(x => x.active == true) on b.newsletterboxid equals newsbx.newsletterboxid
+                             join newsbx in db.newsletterbox.Where(x => x.active == true) on b.newsletterboxid equals newsbx.newsletterboxid
 
-                             join h in db.htmlcomponents on b.htmlcomid equals h.htmlcomid into hs
+                             join h in db.htmlcomponent on b.htmlcomid equals h.htmlcomid into hs
                              from hbox in hs.DefaultIfEmpty()
 
-                             join c in db.colors on newsbx.bgcolorid equals c.colorid into cs
+                             join c in db.color on newsbx.bgcolorid equals c.colorid into cs
                              from backgroundcolor in cs.DefaultIfEmpty()
 
                              where b.masterboxcontentid == boxContentId
@@ -717,9 +717,9 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                var items = (from newsbx in db.newsletterboxes.Where(x => x.active == true)
-                             join ntb in db.NewsletterTemplatesBoxes on newsbx.newsletterboxid equals ntb.newsletterboxid
-                             join c in db.colors on newsbx.bgcolorid equals c.colorid into cs
+                var items = (from newsbx in db.newsletterbox.Where(x => x.active == true)
+                             join ntb in db.NewsletterTemplatesBox on newsbx.newsletterboxid equals ntb.newsletterboxid
+                             join c in db.color on newsbx.bgcolorid equals c.colorid into cs
                              from backgroundcolor in cs.DefaultIfEmpty()
                              where ntb.newslettertemplateid == newsletterTemplateId
                              select new BoxStyle
@@ -741,10 +741,10 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                var item = (from newsbx in db.newsletterboxes.Where(x => x.active == true)
-                            join ntb in db.NewsletterTemplatesBoxes on newsbx.newsletterboxid equals ntb.newsletterboxid
+                var item = (from newsbx in db.newsletterbox.Where(x => x.active == true)
+                            join ntb in db.NewsletterTemplatesBox on newsbx.newsletterboxid equals ntb.newsletterboxid
                             //join bxtype in db.boxtypes on newsbx.boxtypeid equals bxtype.boxtypeid
-                            join c in db.colors on newsbx.bgcolorid equals c.colorid into cs
+                            join c in db.color on newsbx.bgcolorid equals c.colorid into cs
                             from backgroundcolor in cs.DefaultIfEmpty()
                             where newsbx.newsletterboxid == newsletterBoxId
                             select new BoxStyle

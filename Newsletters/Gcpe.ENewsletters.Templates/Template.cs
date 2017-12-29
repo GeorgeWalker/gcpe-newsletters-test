@@ -35,7 +35,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                int newsletterTemplateHtmlComponentId = (from nt in db.newslettertemplates 
+                int newsletterTemplateHtmlComponentId = (from nt in db.newslettertemplate 
                                                 where nt.newslettertemplateid == newsletterTemplateId
                                                 select nt.htmlcomid).FirstOrDefault();
                 return IsOneColumn(newsletterTemplateHtmlComponentId);
@@ -48,7 +48,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                return (from e in db.editions
+                return (from e in db.edition
                         where e.editionid == editionId
                         select e.newslettertemplateid.Value).FirstOrDefault();
 
@@ -67,7 +67,7 @@ namespace Gcpe.ENewsletters.Templates
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
 
-                newslettertemplate nTemplate = (from nt in db.newslettertemplates 
+                newslettertemplate nTemplate = (from nt in db.newslettertemplate 
                                                 where nt.newslettertemplateid == newsletterTemplateId
                                                 select nt).FirstOrDefault();
 
@@ -91,7 +91,7 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                template = (from nt in db.htmlcomponents
+                template = (from nt in db.htmlcomponent
                       where nt.htmlcomid == htmlComponentTemplateId
                       select nt.content).FirstOrDefault();
 
@@ -137,7 +137,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                List<LinkArea> coords = (from h in db.NewsletterTemplatesBannerImages where h.newslettertemplateid == newsletterTemplateId select new LinkArea { Coordinates = h.coordinates, LinkUrl = h.url }).ToList();
+                List<LinkArea> coords = (from h in db.NewsletterTemplatesBannerImage where h.newslettertemplateid == newsletterTemplateId select new LinkArea { Coordinates = h.coordinates, LinkUrl = h.url }).ToList();
                 return GetHeader(bannerFileId, coords, getFileLocation);
             }
         }
@@ -146,7 +146,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                file f = (from x in db.files where x.fileid == bannerFileId.Value select x).FirstOrDefault();
+                file f = (from x in db.file where x.fileid == bannerFileId.Value select x).FirstOrDefault();
 
                 string areaMap = string.Empty;
                 foreach (LinkArea link in coords)
@@ -195,7 +195,7 @@ namespace Gcpe.ENewsletters.Templates
             string style = string.Empty;
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                color clr = (from f in db.colors where f.colorid == colorId select f).FirstOrDefault();
+                color clr = (from f in db.color where f.colorid == colorId select f).FirstOrDefault();
                 string hex = Utility.GetHexFromRGB(clr.red.Value, clr.green.Value, clr.blue.Value);
                 style = "background-color: #" + hex + ";";
             }
@@ -206,7 +206,7 @@ namespace Gcpe.ENewsletters.Templates
             string style = string.Empty;
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                Guid? fileId = (from f in db.files where f.fileid == imageId select f.guid).FirstOrDefault();
+                Guid? fileId = (from f in db.file where f.fileid == imageId select f.guid).FirstOrDefault();
                 style = String.Format("background-image:url(getfile.aspx?guid={0})", fileId.Value);
             }
             return style;
@@ -239,11 +239,11 @@ namespace Gcpe.ENewsletters.Templates
 
                 if (colorId.HasValue)
                 {
-                    color c = (from x in db.colors where x.colorid == colorId select x).FirstOrDefault();
+                    color c = (from x in db.color where x.colorid == colorId select x).FirstOrDefault();
                     hexValue = Utility.GetHexFromRGB(c.red.Value, c.green.Value, c.blue.Value);
                 }
                 
-                List<FooterLink> footerLinks = (from x in db.NewsletterTemplatesFooterLinks where x.newslettertemplateid == templateId orderby x.link_order, x.newslettertemplatefooterlinkid select new FooterLink { DisplayText = x.link_text, LinkUrl = x.link_url,LinkText=x.link_text }).ToList();
+                List<FooterLink> footerLinks = (from x in db.NewsletterTemplatesFooterLink where x.newslettertemplateid == templateId orderby x.link_order, x.newslettertemplatefooterlinkid select new FooterLink { DisplayText = x.link_text, LinkUrl = x.link_url,LinkText=x.link_text }).ToList();
 
                 return GetFooterWithColor(templateId, hexValue, arealink, footerLinks, viewType);
             }
@@ -304,8 +304,8 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                List<LinkArea> imageLinks = (from x in db.NewsletterTemplatesFooterImages where x.newslettertemplateid == templateId select new LinkArea { LinkUrl = x.url, Coordinates = x.coordinates }).ToList();
-                List<FooterLink> footerLinks = (from x in db.NewsletterTemplatesFooterLinks where x.newslettertemplateid == templateId orderby x.link_order select new FooterLink { DisplayText = x.link_text, LinkUrl = x.link_url }).ToList();
+                List<LinkArea> imageLinks = (from x in db.NewsletterTemplatesFooterImage where x.newslettertemplateid == templateId select new LinkArea { LinkUrl = x.url, Coordinates = x.coordinates }).ToList();
+                List<FooterLink> footerLinks = (from x in db.NewsletterTemplatesFooterLink where x.newslettertemplateid == templateId orderby x.link_order select new FooterLink { DisplayText = x.link_text, LinkUrl = x.link_url }).ToList();
 
                 return GetFooterWithImageWithEmbededLinks(templateId, fileId, imageLinks, footerLinks, getFileLocation, viewType);
             }
@@ -318,7 +318,7 @@ namespace Gcpe.ENewsletters.Templates
 
             using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
-                file f = (from x in db.files where x.fileid == fileId select x).FirstOrDefault();
+                file f = (from x in db.file where x.fileid == fileId select x).FirstOrDefault();
 
                 /*int distributionListId = (from x in db.newsletters
                                           join y in db.newslettertemplates on x.newsletterid equals y.newsletterid
