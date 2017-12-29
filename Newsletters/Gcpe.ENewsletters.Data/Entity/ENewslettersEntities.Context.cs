@@ -14,8 +14,13 @@ namespace Gcpe.ENewsletters.Data.Entity
 
     
     public partial class ENewslettersEntities : DbContext
-    {    
-    
+    {
+
+        //This constructor is required for .NET Core dependency injection
+        public ENewslettersEntities(DbContextOptions<ENewslettersEntities> options) : base(options)
+        {
+        }
+
         public virtual DbSet<approver> approvers { get; set; }
         public virtual DbSet<article> articles { get; set; }
         public virtual DbSet<boxcontent> boxcontents { get; set; }
