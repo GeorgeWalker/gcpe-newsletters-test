@@ -1,0 +1,2569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Gcpe.ENewslettersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="approver">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="newsletterid" Type="int" />
+          <Property Name="userid" Type="int" />
+        </EntityType>
+        <EntityType Name="article">
+          <Key>
+            <PropertyRef Name="articleid" />
+          </Key>
+          <Property Name="articleid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="editionid" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="active" Type="int" />
+          <Property Name="subject" Type="varchar" MaxLength="1000" />
+          <Property Name="aritcledate" Type="datetime" />
+          <Property Name="htmlcomid" Type="int" />
+          <Property Name="publishstatus" Type="int" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuserid" Type="int" />
+          <Property Name="updatedate" Type="datetime" />
+          <Property Name="updateuserid" Type="int" />
+          <Property Name="foldername" Type="nvarchar" MaxLength="100" />
+          <Property Name="key" Type="nvarchar" MaxLength="4000" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="boxcontent">
+          <Key>
+            <PropertyRef Name="boxcontentid" />
+          </Key>
+          <Property Name="boxcontentid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="editionid" Type="int" />
+          <Property Name="newsletterboxid" Type="int" />
+          <Property Name="title" Type="varchar" MaxLength="200" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="picturename" Type="varchar" MaxLength="100" />
+          <Property Name="picturealttext" Type="varchar" MaxLength="400" />
+          <Property Name="hyperlink" Type="varchar" MaxLength="400" />
+          <Property Name="htmlcomid" Type="int" />
+          <Property Name="readmorelink" Type="varchar" MaxLength="100" />
+          <Property Name="positioncolumn" Type="int" />
+          <Property Name="positionorder" Type="int" />
+          <Property Name="masterboxcontentid" Type="int" />
+          <Property Name="hyperlinktarget" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="boxtype">
+          <Key>
+            <PropertyRef Name="boxtypeid" />
+          </Key>
+          <Property Name="boxtypeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="color">
+          <Key>
+            <PropertyRef Name="colorid" />
+          </Key>
+          <Property Name="colorid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="red" Type="int" />
+          <Property Name="green" Type="int" />
+          <Property Name="blue" Type="int" />
+        </EntityType>
+        <EntityType Name="cornertype">
+          <Key>
+            <PropertyRef Name="cornertypeid" />
+          </Key>
+          <Property Name="cornertypeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="radius" Type="int" />
+        </EntityType>
+        <EntityType Name="edition">
+          <Key>
+            <PropertyRef Name="editionid" />
+          </Key>
+          <Property Name="editionid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="active" Type="int" />
+          <Property Name="newsletterid" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="folderid" Type="int" />
+          <Property Name="subject" Type="varchar" MaxLength="255" />
+          <Property Name="subscriberCount" Type="int" />
+          <Property Name="approveruserid" Type="int" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuserid" Type="int" />
+          <Property Name="updatedate" Type="datetime" />
+          <Property Name="updateuserid" Type="int" />
+          <Property Name="approvedate" Type="datetime" />
+          <Property Name="fontsize" Type="int" />
+          <Property Name="ispublish" Type="int" />
+          <Property Name="distributedPreviously" Type="int" />
+          <Property Name="distributeAvailable" Type="bit" />
+          <Property Name="displayPublic" Type="bit" />
+          <Property Name="originalPublishDt" Type="datetime" />
+          <Property Name="newslettertemplateid" Type="int" />
+          <Property Name="originalDistributeDt" Type="datetime" />
+          <Property Name="key" Type="nvarchar" MaxLength="4000" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Gcpe.ENewsletters.dbo.edition_history' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="edition_history">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="editionid" Type="int" />
+          <Property Name="changedate" Type="datetime" />
+          <Property Name="changebyuserid" Type="int" />
+          <Property Name="changetxt" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="file">
+          <Key>
+            <PropertyRef Name="fileid" />
+          </Key>
+          <Property Name="fileid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guid" Type="uniqueidentifier" />
+          <Property Name="folderid" Type="int" />
+          <Property Name="type" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="fname" Type="varchar" MaxLength="100" />
+          <Property Name="ftype" Type="varchar" MaxLength="150" />
+          <Property Name="fsize" Type="int" />
+          <Property Name="width" Type="int" />
+          <Property Name="height" Type="int" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuserid" Type="int" />
+          <Property Name="image" Type="image" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="folder">
+          <Key>
+            <PropertyRef Name="folderid" />
+          </Key>
+          <Property Name="folderid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parentfolderid" Type="int" />
+          <Property Name="description" Type="varchar" MaxLength="100" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuserid" Type="int" />
+        </EntityType>
+        <EntityType Name="htmlcomponent">
+          <Key>
+            <PropertyRef Name="htmlcomid" />
+          </Key>
+          <Property Name="htmlcomid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="20" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="content" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="newsletter">
+          <Key>
+            <PropertyRef Name="newsletterid" />
+          </Key>
+          <Property Name="newsletterid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="folderid" Type="int" />
+          <Property Name="ownerusergroupid" Type="int" />
+          <Property Name="nlStatus" Type="int" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuserid" Type="int" />
+          <Property Name="updatedate" Type="datetime" />
+          <Property Name="updateuserid" Type="int" />
+          <Property Name="subscribeyn" Type="bit" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="4000" />
+          <Property Name="key" Type="nvarchar" MaxLength="4000" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="newsletterbox">
+          <Key>
+            <PropertyRef Name="newsletterboxid" />
+          </Key>
+          <Property Name="newsletterboxid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="boxtypeid" Type="int" />
+          <Property Name="transparent" Type="int" />
+          <Property Name="bgcolorid" Type="int" />
+          <Property Name="cornertypeid" Type="int" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="newslettertemplates">
+          <Key>
+            <PropertyRef Name="newslettertemplateid" />
+          </Key>
+          <Property Name="newslettertemplateid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="newsletterid" Type="int" Nullable="false" />
+          <Property Name="version" Type="nvarchar" MaxLength="50" />
+          <Property Name="bannerfileid" Type="int" />
+          <Property Name="banner_coords" Type="nvarchar" MaxLength="50" />
+          <Property Name="backgroundfileid" Type="int" />
+          <Property Name="backgroundcolorid" Type="int" />
+          <Property Name="footerfileid" Type="int" />
+          <Property Name="footercolorid" Type="int" />
+          <Property Name="footer_coords" Type="nvarchar" MaxLength="50" />
+          <Property Name="footer_contact_link" Type="nvarchar" MaxLength="150" />
+          <Property Name="footer_area_link" Type="nvarchar" MaxLength="150" />
+          <Property Name="artfileid" Type="int" />
+          <Property Name="artcolorid" Type="int" />
+          <Property Name="htmlcomid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NewsletterTemplatesBannerImage">
+          <Key>
+            <PropertyRef Name="newslettertemplatebannerimageid" />
+          </Key>
+          <Property Name="newslettertemplatebannerimageid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="newslettertemplateid" Type="int" Nullable="false" />
+          <Property Name="coordinates" Type="nvarchar" MaxLength="50" />
+          <Property Name="url" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="NewsletterTemplatesBoxes">
+          <Key>
+            <PropertyRef Name="newslettertemplatesboxid" />
+          </Key>
+          <Property Name="newslettertemplatesboxid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="newsletterboxid" Type="int" />
+          <Property Name="newslettertemplateid" Type="int" />
+        </EntityType>
+        <EntityType Name="NewsletterTemplatesFooterImage">
+          <Key>
+            <PropertyRef Name="newslettertemplatefooterimageid" />
+          </Key>
+          <Property Name="newslettertemplatefooterimageid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="newslettertemplateid" Type="int" Nullable="false" />
+          <Property Name="coordinates" Type="nvarchar" MaxLength="50" />
+          <Property Name="url" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="NewsletterTemplatesFooterLink">
+          <Key>
+            <PropertyRef Name="newslettertemplatefooterlinkid" />
+          </Key>
+          <Property Name="newslettertemplatefooterlinkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="newslettertemplateid" Type="int" Nullable="false" />
+          <Property Name="link_text" Type="nvarchar" MaxLength="50" />
+          <Property Name="link_url" Type="nvarchar" MaxLength="150" />
+          <Property Name="link_order" Type="int" />
+        </EntityType>
+        <EntityType Name="NewsletterUserAuthor">
+          <Key>
+            <PropertyRef Name="NewsletterUserAuthorId" />
+          </Key>
+          <Property Name="NewsletterUserAuthorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="newsletterid" Type="int" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="roleauthor" Type="bit" />
+        </EntityType>
+        <EntityType Name="NewsletterUserDistributor">
+          <Key>
+            <PropertyRef Name="NewsletterUserDistributorId" />
+          </Key>
+          <Property Name="NewsletterUserDistributorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="newsletterid" Type="int" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="roledistributor" Type="bit" />
+        </EntityType>
+        <EntityType Name="PageCheck">
+          <Key>
+            <PropertyRef Name="PageCheckID" />
+          </Key>
+          <Property Name="PageCheckID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageType" Type="int" />
+          <Property Name="RecordID" Type="int" />
+          <Property Name="CheckoutUserID" Type="int" />
+          <Property Name="CheckoutTime" Type="datetime" />
+          <Property Name="CheckinTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="publishstatus">
+          <Key>
+            <PropertyRef Name="publishstatusid" />
+          </Key>
+          <Property Name="publishstatusid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="readcounter">
+          <Key>
+            <PropertyRef Name="readcounterid" />
+          </Key>
+          <Property Name="readcounterid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="articleid" Type="int" />
+          <Property Name="editionid" Type="int" />
+          <Property Name="emailrecipientid" Type="int" />
+          <Property Name="userid" Type="int" />
+          <Property Name="readdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="upload">
+          <Key>
+            <PropertyRef Name="uploadid" />
+          </Key>
+          <Property Name="uploadid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="255" />
+          <Property Name="filedata" Type="varbinary(max)" />
+          <Property Name="adminonly" Type="bit" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuserid" Type="int" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="active" Type="int" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="100" />
+          <Property Name="lastname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="idir_id" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="rolepabadmin" Type="int" />
+          <Property Name="roleministryadmin" Type="int" />
+          <Property Name="roleauthor" Type="int" />
+          <Property Name="roledistributor" Type="int" />
+          <Property Name="roleapprover" Type="int" />
+          <Property Name="rolepublic" Type="int" />
+          <Property Name="createdate" Type="datetime" Nullable="false" />
+          <Property Name="createuserid" Type="int" Nullable="false" />
+          <Property Name="updatedate" Type="datetime" />
+          <Property Name="updateuserid" Type="int" />
+          <Property Name="usergroupId" Type="int" />
+        </EntityType>
+        <EntityType Name="usergroup">
+          <Key>
+            <PropertyRef Name="usergroupid" />
+          </Key>
+          <Property Name="usergroupid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="folderid" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="100" />
+          <Property Name="bgcolor_default" Type="nvarchar" MaxLength="50" />
+          <Property Name="footercolor_default" Type="nvarchar" MaxLength="50" />
+          <Property Name="newsletter_link" Type="nvarchar" MaxLength="100" />
+          <Property Name="latestedition_link" Type="nvarchar" MaxLength="250" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <Association Name="FK__approver__newsle__52CE3E04">
+          <End Role="newsletter" Type="Self.newsletter" Multiplicity="0..1" />
+          <End Role="approver" Type="Self.approver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletter">
+              <PropertyRef Name="newsletterid" />
+            </Principal>
+            <Dependent Role="approver">
+              <PropertyRef Name="newsletterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__approver__userid__53C2623D">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="approver" Type="Self.approver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="approver">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__createu__5B638405">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="article" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__edition__569ECEE8">
+          <End Role="edition" Type="Self.edition" Multiplicity="0..1" />
+          <End Role="article" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="edition">
+              <PropertyRef Name="editionid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="editionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__htmlcom__5887175A">
+          <End Role="htmlcomponent" Type="Self.htmlcomponent" Multiplicity="0..1" />
+          <End Role="article" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="htmlcomponent">
+              <PropertyRef Name="htmlcomid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="htmlcomid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__publish__597B3B93">
+          <End Role="publishstatus" Type="Self.publishstatus" Multiplicity="0..1" />
+          <End Role="article" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publishstatus">
+              <PropertyRef Name="publishstatusid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="publishstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__updateu__5D4BCC77">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="article" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="updateuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__boxconten__editi__60283922">
+          <End Role="edition" Type="Self.edition" Multiplicity="0..1" />
+          <End Role="boxcontent" Type="Self.boxcontent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="edition">
+              <PropertyRef Name="editionid" />
+            </Principal>
+            <Dependent Role="boxcontent">
+              <PropertyRef Name="editionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__boxconten__htmlc__62108194">
+          <End Role="htmlcomponent" Type="Self.htmlcomponent" Multiplicity="0..1" />
+          <End Role="boxcontent" Type="Self.boxcontent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="htmlcomponent">
+              <PropertyRef Name="htmlcomid" />
+            </Principal>
+            <Dependent Role="boxcontent">
+              <PropertyRef Name="htmlcomid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__boxconten__maste__6304A5CD">
+          <End Role="boxcontent" Type="Self.boxcontent" Multiplicity="0..1" />
+          <End Role="boxcontent1" Type="Self.boxcontent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="boxcontent">
+              <PropertyRef Name="boxcontentid" />
+            </Principal>
+            <Dependent Role="boxcontent1">
+              <PropertyRef Name="masterboxcontentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__boxconten__newsl__611C5D5B">
+          <End Role="newsletterbox" Type="Self.newsletterbox" Multiplicity="0..1" />
+          <End Role="boxcontent" Type="Self.boxcontent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletterbox">
+              <PropertyRef Name="newsletterboxid" />
+            </Principal>
+            <Dependent Role="boxcontent">
+              <PropertyRef Name="newsletterboxid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition__approve__4B2D1C3C">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="edition" Type="Self.edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="approveruserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition__createu__4D1564AE">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="edition" Type="Self.edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition__folderi__4944D3CA">
+          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
+          <End Role="edition" Type="Self.edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="folderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition__updateu__4EFDAD20">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="edition" Type="Self.edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="updateuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition_newslettertemplates">
+          <End Role="newslettertemplates" Type="Self.newslettertemplates" Multiplicity="0..1" />
+          <End Role="edition" Type="Self.edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplates">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__file__createuser__086B34A6">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="file" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__file__folderid__058EC7FB">
+          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
+          <End Role="file" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="folderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__folder__createus__7A1D154F">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="folder" Type="Self.folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="folder">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__folder__parentfo__7834CCDD">
+          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
+          <End Role="folder1" Type="Self.folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="folder1">
+              <PropertyRef Name="parentfolderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__bgcol__41A3B202">
+          <End Role="color" Type="Self.color" Multiplicity="0..1" />
+          <End Role="newsletterbox" Type="Self.newsletterbox" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="color">
+              <PropertyRef Name="colorid" />
+            </Principal>
+            <Dependent Role="newsletterbox">
+              <PropertyRef Name="bgcolorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__boxty__40AF8DC9">
+          <End Role="boxtype" Type="Self.boxtype" Multiplicity="0..1" />
+          <End Role="newsletterbox" Type="Self.newsletterbox" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="boxtype">
+              <PropertyRef Name="boxtypeid" />
+            </Principal>
+            <Dependent Role="newsletterbox">
+              <PropertyRef Name="boxtypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__corne__4297D63B">
+          <End Role="cornertype" Type="Self.cornertype" Multiplicity="0..1" />
+          <End Role="newsletterbox" Type="Self.newsletterbox" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cornertype">
+              <PropertyRef Name="cornertypeid" />
+            </Principal>
+            <Dependent Role="newsletterbox">
+              <PropertyRef Name="cornertypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__creat__3AF6B473">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="newsletter" Type="Self.newsletter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="newsletter">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__folde__2BB470E3">
+          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
+          <End Role="newsletter" Type="Self.newsletter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="newsletter">
+              <PropertyRef Name="folderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__owner__2D9CB955">
+          <End Role="usergroup" Type="Self.usergroup" Multiplicity="0..1" />
+          <End Role="newsletter" Type="Self.newsletter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usergroup">
+              <PropertyRef Name="usergroupid" />
+            </Principal>
+            <Dependent Role="newsletter">
+              <PropertyRef Name="ownerusergroupid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__updat__3CDEFCE5">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="newsletter" Type="Self.newsletter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="newsletter">
+              <PropertyRef Name="updateuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Newslette__useri__7B9B496D">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="NewsletterUserAuthor" Type="Self.NewsletterUserAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="NewsletterUserAuthor">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Newslette__useri__7F6BDA51">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="NewsletterUserDistributor" Type="Self.NewsletterUserDistributor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="NewsletterUserDistributor">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslettertemplates_htmlcomponent">
+          <End Role="htmlcomponent" Type="Self.htmlcomponent" Multiplicity="1" />
+          <End Role="newslettertemplates" Type="Self.newslettertemplates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="htmlcomponent">
+              <PropertyRef Name="htmlcomid" />
+            </Principal>
+            <Dependent Role="newslettertemplates">
+              <PropertyRef Name="htmlcomid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesBannerImage_newslettertemplates">
+          <End Role="newslettertemplates" Type="Self.newslettertemplates" Multiplicity="1" />
+          <End Role="NewsletterTemplatesBannerImage" Type="Self.NewsletterTemplatesBannerImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplates">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesBannerImage">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesBoxes_newsletterbox">
+          <End Role="newsletterbox" Type="Self.newsletterbox" Multiplicity="0..1" />
+          <End Role="NewsletterTemplatesBoxes" Type="Self.NewsletterTemplatesBoxes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletterbox">
+              <PropertyRef Name="newsletterboxid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesBoxes">
+              <PropertyRef Name="newsletterboxid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesBoxes_newslettertemplates">
+          <End Role="newslettertemplates" Type="Self.newslettertemplates" Multiplicity="0..1" />
+          <End Role="NewsletterTemplatesBoxes" Type="Self.NewsletterTemplatesBoxes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplates">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesBoxes">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesFooterImage_newslettertemplates">
+          <End Role="newslettertemplates" Type="Self.newslettertemplates" Multiplicity="1" />
+          <End Role="NewsletterTemplatesFooterImage" Type="Self.NewsletterTemplatesFooterImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplates">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesFooterImage">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesFooterLink_newslettertemplates">
+          <End Role="newslettertemplates" Type="Self.newslettertemplates" Multiplicity="1" />
+          <End Role="NewsletterTemplatesFooterLink" Type="Self.NewsletterTemplatesFooterLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplates">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesFooterLink">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterUserAuthor__newsletter">
+          <End Role="newsletter" Type="Self.newsletter" Multiplicity="1" />
+          <End Role="NewsletterUserAuthor" Type="Self.NewsletterUserAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletter">
+              <PropertyRef Name="newsletterid" />
+            </Principal>
+            <Dependent Role="NewsletterUserAuthor">
+              <PropertyRef Name="newsletterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageCheck__Check__009508B4">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="PageCheck" Type="Self.PageCheck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="PageCheck">
+              <PropertyRef Name="CheckoutUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__upload__createus__7F36D027">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="upload" Type="Self.upload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="upload">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__user__updateuser__75586032">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="user1" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="user1">
+              <PropertyRef Name="updateuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usergroup__folde__7CF981FA">
+          <End Role="folder" Type="Self.folder" Multiplicity="0..1" />
+          <End Role="usergroup" Type="Self.usergroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="usergroup">
+              <PropertyRef Name="folderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_newslettertemplates_newsletter">
+          <End Role="newsletter" Type="Self.newsletter" Multiplicity="1" />
+          <End Role="newslettertemplates" Type="Self.newslettertemplates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletter">
+              <PropertyRef Name="newsletterid" />
+            </Principal>
+            <Dependent Role="newslettertemplates">
+              <PropertyRef Name="newsletterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewsletterUserDistributor_newsletter">
+          <End Role="newsletter" Type="Self.newsletter" Multiplicity="1" />
+          <End Role="NewsletterUserDistributor" Type="Self.NewsletterUserDistributor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletter">
+              <PropertyRef Name="newsletterid" />
+            </Principal>
+            <Dependent Role="NewsletterUserDistributor">
+              <PropertyRef Name="newsletterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GcpeENewslettersModelStoreContainer">
+          <EntitySet Name="approver" EntityType="Self.approver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="article" EntityType="Self.article" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="boxcontent" EntityType="Self.boxcontent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="boxtype" EntityType="Self.boxtype" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="color" EntityType="Self.color" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cornertype" EntityType="Self.cornertype" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="edition" EntityType="Self.edition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="file" EntityType="Self.file" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="folder" EntityType="Self.folder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="htmlcomponent" EntityType="Self.htmlcomponent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="newsletter" EntityType="Self.newsletter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="newsletterbox" EntityType="Self.newsletterbox" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="newslettertemplates" EntityType="Self.newslettertemplates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsletterTemplatesBannerImage" EntityType="Self.NewsletterTemplatesBannerImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsletterTemplatesBoxes" EntityType="Self.NewsletterTemplatesBoxes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsletterTemplatesFooterImage" EntityType="Self.NewsletterTemplatesFooterImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsletterTemplatesFooterLink" EntityType="Self.NewsletterTemplatesFooterLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsletterUserAuthor" EntityType="Self.NewsletterUserAuthor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsletterUserDistributor" EntityType="Self.NewsletterUserDistributor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PageCheck" EntityType="Self.PageCheck" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="publishstatus" EntityType="Self.publishstatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="readcounter" EntityType="Self.readcounter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="upload" EntityType="Self.upload" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usergroup" EntityType="Self.usergroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="edition_history" EntityType="Self.edition_history" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [edition_history].[ID] AS [ID], 
+    [edition_history].[editionid] AS [editionid], 
+    [edition_history].[changedate] AS [changedate], 
+    [edition_history].[changebyuserid] AS [changebyuserid], 
+    [edition_history].[changetxt] AS [changetxt]
+    FROM [dbo].[edition_history] AS [edition_history]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__approver__newsle__52CE3E04" Association="Self.FK__approver__newsle__52CE3E04">
+            <End Role="newsletter" EntitySet="newsletter" />
+            <End Role="approver" EntitySet="approver" />
+          </AssociationSet>
+          <AssociationSet Name="FK__approver__userid__53C2623D" Association="Self.FK__approver__userid__53C2623D">
+            <End Role="user" EntitySet="user" />
+            <End Role="approver" EntitySet="approver" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__createu__5B638405" Association="Self.FK__article__createu__5B638405">
+            <End Role="user" EntitySet="user" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__edition__569ECEE8" Association="Self.FK__article__edition__569ECEE8">
+            <End Role="edition" EntitySet="edition" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__htmlcom__5887175A" Association="Self.FK__article__htmlcom__5887175A">
+            <End Role="htmlcomponent" EntitySet="htmlcomponent" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__publish__597B3B93" Association="Self.FK__article__publish__597B3B93">
+            <End Role="publishstatus" EntitySet="publishstatus" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__updateu__5D4BCC77" Association="Self.FK__article__updateu__5D4BCC77">
+            <End Role="user" EntitySet="user" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__boxconten__editi__60283922" Association="Self.FK__boxconten__editi__60283922">
+            <End Role="edition" EntitySet="edition" />
+            <End Role="boxcontent" EntitySet="boxcontent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__boxconten__htmlc__62108194" Association="Self.FK__boxconten__htmlc__62108194">
+            <End Role="htmlcomponent" EntitySet="htmlcomponent" />
+            <End Role="boxcontent" EntitySet="boxcontent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__boxconten__maste__6304A5CD" Association="Self.FK__boxconten__maste__6304A5CD">
+            <End Role="boxcontent" EntitySet="boxcontent" />
+            <End Role="boxcontent1" EntitySet="boxcontent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__boxconten__newsl__611C5D5B" Association="Self.FK__boxconten__newsl__611C5D5B">
+            <End Role="newsletterbox" EntitySet="newsletterbox" />
+            <End Role="boxcontent" EntitySet="boxcontent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition__approve__4B2D1C3C" Association="Self.FK__edition__approve__4B2D1C3C">
+            <End Role="user" EntitySet="user" />
+            <End Role="edition" EntitySet="edition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition__createu__4D1564AE" Association="Self.FK__edition__createu__4D1564AE">
+            <End Role="user" EntitySet="user" />
+            <End Role="edition" EntitySet="edition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition__folderi__4944D3CA" Association="Self.FK__edition__folderi__4944D3CA">
+            <End Role="folder" EntitySet="folder" />
+            <End Role="edition" EntitySet="edition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition__updateu__4EFDAD20" Association="Self.FK__edition__updateu__4EFDAD20">
+            <End Role="user" EntitySet="user" />
+            <End Role="edition" EntitySet="edition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition_newslettertemplates" Association="Self.FK__edition_newslettertemplates">
+            <End Role="newslettertemplates" EntitySet="newslettertemplates" />
+            <End Role="edition" EntitySet="edition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__file__createuser__086B34A6" Association="Self.FK__file__createuser__086B34A6">
+            <End Role="user" EntitySet="user" />
+            <End Role="file" EntitySet="file" />
+          </AssociationSet>
+          <AssociationSet Name="FK__file__folderid__058EC7FB" Association="Self.FK__file__folderid__058EC7FB">
+            <End Role="folder" EntitySet="folder" />
+            <End Role="file" EntitySet="file" />
+          </AssociationSet>
+          <AssociationSet Name="FK__folder__createus__7A1D154F" Association="Self.FK__folder__createus__7A1D154F">
+            <End Role="user" EntitySet="user" />
+            <End Role="folder" EntitySet="folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__folder__parentfo__7834CCDD" Association="Self.FK__folder__parentfo__7834CCDD">
+            <End Role="folder" EntitySet="folder" />
+            <End Role="folder1" EntitySet="folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__bgcol__41A3B202" Association="Self.FK__newslette__bgcol__41A3B202">
+            <End Role="color" EntitySet="color" />
+            <End Role="newsletterbox" EntitySet="newsletterbox" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__boxty__40AF8DC9" Association="Self.FK__newslette__boxty__40AF8DC9">
+            <End Role="boxtype" EntitySet="boxtype" />
+            <End Role="newsletterbox" EntitySet="newsletterbox" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__corne__4297D63B" Association="Self.FK__newslette__corne__4297D63B">
+            <End Role="cornertype" EntitySet="cornertype" />
+            <End Role="newsletterbox" EntitySet="newsletterbox" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__creat__3AF6B473" Association="Self.FK__newslette__creat__3AF6B473">
+            <End Role="user" EntitySet="user" />
+            <End Role="newsletter" EntitySet="newsletter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__folde__2BB470E3" Association="Self.FK__newslette__folde__2BB470E3">
+            <End Role="folder" EntitySet="folder" />
+            <End Role="newsletter" EntitySet="newsletter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__owner__2D9CB955" Association="Self.FK__newslette__owner__2D9CB955">
+            <End Role="usergroup" EntitySet="usergroup" />
+            <End Role="newsletter" EntitySet="newsletter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__updat__3CDEFCE5" Association="Self.FK__newslette__updat__3CDEFCE5">
+            <End Role="user" EntitySet="user" />
+            <End Role="newsletter" EntitySet="newsletter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Newslette__useri__7B9B496D" Association="Self.FK__Newslette__useri__7B9B496D">
+            <End Role="user" EntitySet="user" />
+            <End Role="NewsletterUserAuthor" EntitySet="NewsletterUserAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Newslette__useri__7F6BDA51" Association="Self.FK__Newslette__useri__7F6BDA51">
+            <End Role="user" EntitySet="user" />
+            <End Role="NewsletterUserDistributor" EntitySet="NewsletterUserDistributor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslettertemplates_htmlcomponent" Association="Self.FK__newslettertemplates_htmlcomponent">
+            <End Role="htmlcomponent" EntitySet="htmlcomponent" />
+            <End Role="newslettertemplates" EntitySet="newslettertemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesBannerImage_newslettertemplates" Association="Self.FK__NewsletterTemplatesBannerImage_newslettertemplates">
+            <End Role="newslettertemplates" EntitySet="newslettertemplates" />
+            <End Role="NewsletterTemplatesBannerImage" EntitySet="NewsletterTemplatesBannerImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesBoxes_newsletterbox" Association="Self.FK__NewsletterTemplatesBoxes_newsletterbox">
+            <End Role="newsletterbox" EntitySet="newsletterbox" />
+            <End Role="NewsletterTemplatesBoxes" EntitySet="NewsletterTemplatesBoxes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesBoxes_newslettertemplates" Association="Self.FK__NewsletterTemplatesBoxes_newslettertemplates">
+            <End Role="newslettertemplates" EntitySet="newslettertemplates" />
+            <End Role="NewsletterTemplatesBoxes" EntitySet="NewsletterTemplatesBoxes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesFooterImage_newslettertemplates" Association="Self.FK__NewsletterTemplatesFooterImage_newslettertemplates">
+            <End Role="newslettertemplates" EntitySet="newslettertemplates" />
+            <End Role="NewsletterTemplatesFooterImage" EntitySet="NewsletterTemplatesFooterImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesFooterLink_newslettertemplates" Association="Self.FK__NewsletterTemplatesFooterLink_newslettertemplates">
+            <End Role="newslettertemplates" EntitySet="newslettertemplates" />
+            <End Role="NewsletterTemplatesFooterLink" EntitySet="NewsletterTemplatesFooterLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterUserAuthor__newsletter" Association="Self.FK__NewsletterUserAuthor__newsletter">
+            <End Role="newsletter" EntitySet="newsletter" />
+            <End Role="NewsletterUserAuthor" EntitySet="NewsletterUserAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageCheck__Check__009508B4" Association="Self.FK__PageCheck__Check__009508B4">
+            <End Role="user" EntitySet="user" />
+            <End Role="PageCheck" EntitySet="PageCheck" />
+          </AssociationSet>
+          <AssociationSet Name="FK__upload__createus__7F36D027" Association="Self.FK__upload__createus__7F36D027">
+            <End Role="user" EntitySet="user" />
+            <End Role="upload" EntitySet="upload" />
+          </AssociationSet>
+          <AssociationSet Name="FK__user__updateuser__75586032" Association="Self.FK__user__updateuser__75586032">
+            <End Role="user" EntitySet="user" />
+            <End Role="user1" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usergroup__folde__7CF981FA" Association="Self.FK__usergroup__folde__7CF981FA">
+            <End Role="folder" EntitySet="folder" />
+            <End Role="usergroup" EntitySet="usergroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_newslettertemplates_newsletter" Association="Self.FK_newslettertemplates_newsletter">
+            <End Role="newsletter" EntitySet="newsletter" />
+            <End Role="newslettertemplates" EntitySet="newslettertemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewsletterUserDistributor_newsletter" Association="Self.FK_NewsletterUserDistributor_newsletter">
+            <End Role="newsletter" EntitySet="newsletter" />
+            <End Role="NewsletterUserDistributor" EntitySet="NewsletterUserDistributor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Gcpe.ENewslettersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ENewslettersEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="approvers" EntityType="Gcpe.ENewslettersModel.approver" />
+          <EntitySet Name="articles" EntityType="Gcpe.ENewslettersModel.article" />
+          <EntitySet Name="boxcontents" EntityType="Gcpe.ENewslettersModel.boxcontent" />
+          <EntitySet Name="boxtypes" EntityType="Gcpe.ENewslettersModel.boxtype" />
+          <EntitySet Name="colors" EntityType="Gcpe.ENewslettersModel.color" />
+          <EntitySet Name="cornertypes" EntityType="Gcpe.ENewslettersModel.cornertype" />
+          <EntitySet Name="editions" EntityType="Gcpe.ENewslettersModel.edition" />
+          <EntitySet Name="files" EntityType="Gcpe.ENewslettersModel.file" />
+          <EntitySet Name="folders" EntityType="Gcpe.ENewslettersModel.folder" />
+          <EntitySet Name="htmlcomponents" EntityType="Gcpe.ENewslettersModel.htmlcomponent" />
+          <EntitySet Name="newsletters" EntityType="Gcpe.ENewslettersModel.newsletter" />
+          <EntitySet Name="newsletterboxes" EntityType="Gcpe.ENewslettersModel.newsletterbox" />
+          <EntitySet Name="newslettertemplates" EntityType="Gcpe.ENewslettersModel.newslettertemplate" />
+          <EntitySet Name="NewsletterTemplatesBannerImages" EntityType="Gcpe.ENewslettersModel.NewsletterTemplatesBannerImage" />
+          <EntitySet Name="NewsletterTemplatesBoxes" EntityType="Gcpe.ENewslettersModel.NewsletterTemplatesBox" />
+          <EntitySet Name="NewsletterTemplatesFooterImages" EntityType="Gcpe.ENewslettersModel.NewsletterTemplatesFooterImage" />
+          <EntitySet Name="NewsletterTemplatesFooterLinks" EntityType="Gcpe.ENewslettersModel.NewsletterTemplatesFooterLink" />
+          <EntitySet Name="NewsletterUserAuthors" EntityType="Gcpe.ENewslettersModel.NewsletterUserAuthor" />
+          <EntitySet Name="NewsletterUserDistributors" EntityType="Gcpe.ENewslettersModel.NewsletterUserDistributor" />
+          <EntitySet Name="PageChecks" EntityType="Gcpe.ENewslettersModel.PageCheck" />
+          <EntitySet Name="publishstatus" EntityType="Gcpe.ENewslettersModel.publishstatu" />
+          <EntitySet Name="readcounters" EntityType="Gcpe.ENewslettersModel.readcounter" />
+          <EntitySet Name="sysdiagrams" EntityType="Gcpe.ENewslettersModel.sysdiagram" />
+          <EntitySet Name="uploads" EntityType="Gcpe.ENewslettersModel.upload" />
+          <EntitySet Name="users" EntityType="Gcpe.ENewslettersModel.user" />
+          <EntitySet Name="usergroups" EntityType="Gcpe.ENewslettersModel.usergroup" />
+          <EntitySet Name="edition_history" EntityType="Gcpe.ENewslettersModel.edition_history" />
+          <AssociationSet Name="FK__approver__newsle__52CE3E04" Association="Gcpe.ENewslettersModel.FK__approver__newsle__52CE3E04">
+            <End Role="newsletter" EntitySet="newsletters" />
+            <End Role="approver" EntitySet="approvers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__approver__userid__53C2623D" Association="Gcpe.ENewslettersModel.FK__approver__userid__53C2623D">
+            <End Role="user" EntitySet="users" />
+            <End Role="approver" EntitySet="approvers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__createu__5B638405" Association="Gcpe.ENewslettersModel.FK__article__createu__5B638405">
+            <End Role="user" EntitySet="users" />
+            <End Role="article" EntitySet="articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__edition__569ECEE8" Association="Gcpe.ENewslettersModel.FK__article__edition__569ECEE8">
+            <End Role="edition" EntitySet="editions" />
+            <End Role="article" EntitySet="articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__htmlcom__5887175A" Association="Gcpe.ENewslettersModel.FK__article__htmlcom__5887175A">
+            <End Role="htmlcomponent" EntitySet="htmlcomponents" />
+            <End Role="article" EntitySet="articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__publish__597B3B93" Association="Gcpe.ENewslettersModel.FK__article__publish__597B3B93">
+            <End Role="publishstatu" EntitySet="publishstatus" />
+            <End Role="article" EntitySet="articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__article__updateu__5D4BCC77" Association="Gcpe.ENewslettersModel.FK__article__updateu__5D4BCC77">
+            <End Role="user" EntitySet="users" />
+            <End Role="article" EntitySet="articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__boxconten__editi__60283922" Association="Gcpe.ENewslettersModel.FK__boxconten__editi__60283922">
+            <End Role="edition" EntitySet="editions" />
+            <End Role="boxcontent" EntitySet="boxcontents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__boxconten__htmlc__62108194" Association="Gcpe.ENewslettersModel.FK__boxconten__htmlc__62108194">
+            <End Role="htmlcomponent" EntitySet="htmlcomponents" />
+            <End Role="boxcontent" EntitySet="boxcontents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__boxconten__maste__6304A5CD" Association="Gcpe.ENewslettersModel.FK__boxconten__maste__6304A5CD">
+            <End Role="boxcontent" EntitySet="boxcontents" />
+            <End Role="boxcontent1" EntitySet="boxcontents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__boxconten__newsl__611C5D5B" Association="Gcpe.ENewslettersModel.FK__boxconten__newsl__611C5D5B">
+            <End Role="newsletterbox" EntitySet="newsletterboxes" />
+            <End Role="boxcontent" EntitySet="boxcontents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__boxty__40AF8DC9" Association="Gcpe.ENewslettersModel.FK__newslette__boxty__40AF8DC9">
+            <End Role="boxtype" EntitySet="boxtypes" />
+            <End Role="newsletterbox" EntitySet="newsletterboxes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__bgcol__41A3B202" Association="Gcpe.ENewslettersModel.FK__newslette__bgcol__41A3B202">
+            <End Role="color" EntitySet="colors" />
+            <End Role="newsletterbox" EntitySet="newsletterboxes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__corne__4297D63B" Association="Gcpe.ENewslettersModel.FK__newslette__corne__4297D63B">
+            <End Role="cornertype" EntitySet="cornertypes" />
+            <End Role="newsletterbox" EntitySet="newsletterboxes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition__approve__4B2D1C3C" Association="Gcpe.ENewslettersModel.FK__edition__approve__4B2D1C3C">
+            <End Role="user" EntitySet="users" />
+            <End Role="edition" EntitySet="editions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition__createu__4D1564AE" Association="Gcpe.ENewslettersModel.FK__edition__createu__4D1564AE">
+            <End Role="user" EntitySet="users" />
+            <End Role="edition" EntitySet="editions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition__folderi__4944D3CA" Association="Gcpe.ENewslettersModel.FK__edition__folderi__4944D3CA">
+            <End Role="folder" EntitySet="folders" />
+            <End Role="edition" EntitySet="editions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition__updateu__4EFDAD20" Association="Gcpe.ENewslettersModel.FK__edition__updateu__4EFDAD20">
+            <End Role="user" EntitySet="users" />
+            <End Role="edition" EntitySet="editions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__edition_newslettertemplates" Association="Gcpe.ENewslettersModel.FK__edition_newslettertemplates">
+            <End Role="newslettertemplate" EntitySet="newslettertemplates" />
+            <End Role="edition" EntitySet="editions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__file__createuser__086B34A6" Association="Gcpe.ENewslettersModel.FK__file__createuser__086B34A6">
+            <End Role="user" EntitySet="users" />
+            <End Role="file" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__file__folderid__058EC7FB" Association="Gcpe.ENewslettersModel.FK__file__folderid__058EC7FB">
+            <End Role="folder" EntitySet="folders" />
+            <End Role="file" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__folder__createus__7A1D154F" Association="Gcpe.ENewslettersModel.FK__folder__createus__7A1D154F">
+            <End Role="user" EntitySet="users" />
+            <End Role="folder" EntitySet="folders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__folder__parentfo__7834CCDD" Association="Gcpe.ENewslettersModel.FK__folder__parentfo__7834CCDD">
+            <End Role="folder" EntitySet="folders" />
+            <End Role="folder1" EntitySet="folders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__folde__2BB470E3" Association="Gcpe.ENewslettersModel.FK__newslette__folde__2BB470E3">
+            <End Role="folder" EntitySet="folders" />
+            <End Role="newsletter" EntitySet="newsletters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usergroup__folde__7CF981FA" Association="Gcpe.ENewslettersModel.FK__usergroup__folde__7CF981FA">
+            <End Role="folder" EntitySet="folders" />
+            <End Role="usergroup" EntitySet="usergroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslettertemplates_htmlcomponent" Association="Gcpe.ENewslettersModel.FK__newslettertemplates_htmlcomponent">
+            <End Role="htmlcomponent" EntitySet="htmlcomponents" />
+            <End Role="newslettertemplate" EntitySet="newslettertemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__creat__3AF6B473" Association="Gcpe.ENewslettersModel.FK__newslette__creat__3AF6B473">
+            <End Role="user" EntitySet="users" />
+            <End Role="newsletter" EntitySet="newsletters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__owner__2D9CB955" Association="Gcpe.ENewslettersModel.FK__newslette__owner__2D9CB955">
+            <End Role="usergroup" EntitySet="usergroups" />
+            <End Role="newsletter" EntitySet="newsletters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__newslette__updat__3CDEFCE5" Association="Gcpe.ENewslettersModel.FK__newslette__updat__3CDEFCE5">
+            <End Role="user" EntitySet="users" />
+            <End Role="newsletter" EntitySet="newsletters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterUserAuthor__newsletter" Association="Gcpe.ENewslettersModel.FK__NewsletterUserAuthor__newsletter">
+            <End Role="newsletter" EntitySet="newsletters" />
+            <End Role="NewsletterUserAuthor" EntitySet="NewsletterUserAuthors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_newslettertemplates_newsletter" Association="Gcpe.ENewslettersModel.FK_newslettertemplates_newsletter">
+            <End Role="newsletter" EntitySet="newsletters" />
+            <End Role="newslettertemplate" EntitySet="newslettertemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewsletterUserDistributor_newsletter" Association="Gcpe.ENewslettersModel.FK_NewsletterUserDistributor_newsletter">
+            <End Role="newsletter" EntitySet="newsletters" />
+            <End Role="NewsletterUserDistributor" EntitySet="NewsletterUserDistributors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesBoxes_newsletterbox" Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBoxes_newsletterbox">
+            <End Role="newsletterbox" EntitySet="newsletterboxes" />
+            <End Role="NewsletterTemplatesBox" EntitySet="NewsletterTemplatesBoxes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesBannerImage_newslettertemplates" Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBannerImage_newslettertemplates">
+            <End Role="newslettertemplate" EntitySet="newslettertemplates" />
+            <End Role="NewsletterTemplatesBannerImage" EntitySet="NewsletterTemplatesBannerImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesBoxes_newslettertemplates" Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBoxes_newslettertemplates">
+            <End Role="newslettertemplate" EntitySet="newslettertemplates" />
+            <End Role="NewsletterTemplatesBox" EntitySet="NewsletterTemplatesBoxes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesFooterImage_newslettertemplates" Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesFooterImage_newslettertemplates">
+            <End Role="newslettertemplate" EntitySet="newslettertemplates" />
+            <End Role="NewsletterTemplatesFooterImage" EntitySet="NewsletterTemplatesFooterImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewsletterTemplatesFooterLink_newslettertemplates" Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesFooterLink_newslettertemplates">
+            <End Role="newslettertemplate" EntitySet="newslettertemplates" />
+            <End Role="NewsletterTemplatesFooterLink" EntitySet="NewsletterTemplatesFooterLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Newslette__useri__7B9B496D" Association="Gcpe.ENewslettersModel.FK__Newslette__useri__7B9B496D">
+            <End Role="user" EntitySet="users" />
+            <End Role="NewsletterUserAuthor" EntitySet="NewsletterUserAuthors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Newslette__useri__7F6BDA51" Association="Gcpe.ENewslettersModel.FK__Newslette__useri__7F6BDA51">
+            <End Role="user" EntitySet="users" />
+            <End Role="NewsletterUserDistributor" EntitySet="NewsletterUserDistributors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageCheck__Check__009508B4" Association="Gcpe.ENewslettersModel.FK__PageCheck__Check__009508B4">
+            <End Role="user" EntitySet="users" />
+            <End Role="PageCheck" EntitySet="PageChecks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__upload__createus__7F36D027" Association="Gcpe.ENewslettersModel.FK__upload__createus__7F36D027">
+            <End Role="user" EntitySet="users" />
+            <End Role="upload" EntitySet="uploads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__user__updateuser__75586032" Association="Gcpe.ENewslettersModel.FK__user__updateuser__75586032">
+            <End Role="user" EntitySet="users" />
+            <End Role="user1" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="approver">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="newsletterid" Type="Int32" />
+          <Property Name="userid" Type="Int32" />
+          <NavigationProperty Name="newsletter" Relationship="Gcpe.ENewslettersModel.FK__approver__newsle__52CE3E04" FromRole="approver" ToRole="newsletter" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__approver__userid__53C2623D" FromRole="approver" ToRole="user" />
+        </EntityType>
+        <EntityType Name="article">
+          <Key>
+            <PropertyRef Name="articleid" />
+          </Key>
+          <Property Name="articleid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="editionid" Type="Int32" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="subject" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="aritcledate" Type="DateTime" Precision="3" />
+          <Property Name="htmlcomid" Type="Int32" />
+          <Property Name="publishstatus" Type="Int32" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuserid" Type="Int32" />
+          <Property Name="updatedate" Type="DateTime" Precision="3" />
+          <Property Name="updateuserid" Type="Int32" />
+          <Property Name="foldername" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__article__createu__5B638405" FromRole="article" ToRole="user" />
+          <NavigationProperty Name="edition" Relationship="Gcpe.ENewslettersModel.FK__article__edition__569ECEE8" FromRole="article" ToRole="edition" />
+          <NavigationProperty Name="htmlcomponent" Relationship="Gcpe.ENewslettersModel.FK__article__htmlcom__5887175A" FromRole="article" ToRole="htmlcomponent" />
+          <NavigationProperty Name="publishstatu" Relationship="Gcpe.ENewslettersModel.FK__article__publish__597B3B93" FromRole="article" ToRole="publishstatu" />
+          <NavigationProperty Name="user1" Relationship="Gcpe.ENewslettersModel.FK__article__updateu__5D4BCC77" FromRole="article" ToRole="user" />
+          <Property Name="key" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="boxcontent">
+          <Key>
+            <PropertyRef Name="boxcontentid" />
+          </Key>
+          <Property Name="boxcontentid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="editionid" Type="Int32" />
+          <Property Name="newsletterboxid" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="picturename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="picturealttext" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="hyperlink" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="htmlcomid" Type="Int32" />
+          <Property Name="readmorelink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="positioncolumn" Type="Int32" />
+          <Property Name="positionorder" Type="Int32" />
+          <Property Name="masterboxcontentid" Type="Int32" />
+          <Property Name="hyperlinktarget" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="edition" Relationship="Gcpe.ENewslettersModel.FK__boxconten__editi__60283922" FromRole="boxcontent" ToRole="edition" />
+          <NavigationProperty Name="htmlcomponent" Relationship="Gcpe.ENewslettersModel.FK__boxconten__htmlc__62108194" FromRole="boxcontent" ToRole="htmlcomponent" />
+          <NavigationProperty Name="boxcontent1" Relationship="Gcpe.ENewslettersModel.FK__boxconten__maste__6304A5CD" FromRole="boxcontent" ToRole="boxcontent1" />
+          <NavigationProperty Name="boxcontent2" Relationship="Gcpe.ENewslettersModel.FK__boxconten__maste__6304A5CD" FromRole="boxcontent1" ToRole="boxcontent" />
+          <NavigationProperty Name="newsletterbox" Relationship="Gcpe.ENewslettersModel.FK__boxconten__newsl__611C5D5B" FromRole="boxcontent" ToRole="newsletterbox" />
+        </EntityType>
+        <EntityType Name="boxtype">
+          <Key>
+            <PropertyRef Name="boxtypeid" />
+          </Key>
+          <Property Name="boxtypeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="newsletterboxes" Relationship="Gcpe.ENewslettersModel.FK__newslette__boxty__40AF8DC9" FromRole="boxtype" ToRole="newsletterbox" />
+        </EntityType>
+        <EntityType Name="color">
+          <Key>
+            <PropertyRef Name="colorid" />
+          </Key>
+          <Property Name="colorid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="red" Type="Int32" />
+          <Property Name="green" Type="Int32" />
+          <Property Name="blue" Type="Int32" />
+          <NavigationProperty Name="newsletterboxes" Relationship="Gcpe.ENewslettersModel.FK__newslette__bgcol__41A3B202" FromRole="color" ToRole="newsletterbox" />
+        </EntityType>
+        <EntityType Name="cornertype">
+          <Key>
+            <PropertyRef Name="cornertypeid" />
+          </Key>
+          <Property Name="cornertypeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="radius" Type="Int32" />
+          <NavigationProperty Name="newsletterboxes" Relationship="Gcpe.ENewslettersModel.FK__newslette__corne__4297D63B" FromRole="cornertype" ToRole="newsletterbox" />
+        </EntityType>
+        <EntityType Name="edition">
+          <Key>
+            <PropertyRef Name="editionid" />
+          </Key>
+          <Property Name="editionid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="newsletterid" Type="Int32" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="folderid" Type="Int32" />
+          <Property Name="subject" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="subscriberCount" Type="Int32" />
+          <Property Name="approveruserid" Type="Int32" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuserid" Type="Int32" />
+          <Property Name="updatedate" Type="DateTime" Precision="3" />
+          <Property Name="updateuserid" Type="Int32" />
+          <Property Name="approvedate" Type="DateTime" Precision="3" />
+          <Property Name="fontsize" Type="Int32" />
+          <Property Name="ispublish" Type="Int32" />
+          <Property Name="distributedPreviously" Type="Int32" />
+          <Property Name="distributeAvailable" Type="Boolean" />
+          <Property Name="displayPublic" Type="Boolean" />
+          <Property Name="originalPublishDt" Type="DateTime" Precision="3" />
+          <Property Name="newslettertemplateid" Type="Int32" />
+          <Property Name="originalDistributeDt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="articles" Relationship="Gcpe.ENewslettersModel.FK__article__edition__569ECEE8" FromRole="edition" ToRole="article" />
+          <NavigationProperty Name="boxcontents" Relationship="Gcpe.ENewslettersModel.FK__boxconten__editi__60283922" FromRole="edition" ToRole="boxcontent" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__edition__approve__4B2D1C3C" FromRole="edition" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="Gcpe.ENewslettersModel.FK__edition__createu__4D1564AE" FromRole="edition" ToRole="user" />
+          <NavigationProperty Name="folder" Relationship="Gcpe.ENewslettersModel.FK__edition__folderi__4944D3CA" FromRole="edition" ToRole="folder" />
+          <NavigationProperty Name="user2" Relationship="Gcpe.ENewslettersModel.FK__edition__updateu__4EFDAD20" FromRole="edition" ToRole="user" />
+          <NavigationProperty Name="newslettertemplate" Relationship="Gcpe.ENewslettersModel.FK__edition_newslettertemplates" FromRole="edition" ToRole="newslettertemplate" />
+          <Property Name="key" Type="String" MaxLength="4000" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="file">
+          <Key>
+            <PropertyRef Name="fileid" />
+          </Key>
+          <Property Name="fileid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="Guid" />
+          <Property Name="folderid" Type="Int32" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ftype" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fsize" Type="Int32" />
+          <Property Name="width" Type="Int32" />
+          <Property Name="height" Type="Int32" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuserid" Type="Int32" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__file__createuser__086B34A6" FromRole="file" ToRole="user" />
+          <NavigationProperty Name="folder" Relationship="Gcpe.ENewslettersModel.FK__file__folderid__058EC7FB" FromRole="file" ToRole="folder" />
+        </EntityType>
+        <EntityType Name="folder">
+          <Key>
+            <PropertyRef Name="folderid" />
+          </Key>
+          <Property Name="folderid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parentfolderid" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuserid" Type="Int32" />
+          <NavigationProperty Name="editions" Relationship="Gcpe.ENewslettersModel.FK__edition__folderi__4944D3CA" FromRole="folder" ToRole="edition" />
+          <NavigationProperty Name="files" Relationship="Gcpe.ENewslettersModel.FK__file__folderid__058EC7FB" FromRole="folder" ToRole="file" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__folder__createus__7A1D154F" FromRole="folder" ToRole="user" />
+          <NavigationProperty Name="folder1" Relationship="Gcpe.ENewslettersModel.FK__folder__parentfo__7834CCDD" FromRole="folder" ToRole="folder1" />
+          <NavigationProperty Name="folder2" Relationship="Gcpe.ENewslettersModel.FK__folder__parentfo__7834CCDD" FromRole="folder1" ToRole="folder" />
+          <NavigationProperty Name="newsletters" Relationship="Gcpe.ENewslettersModel.FK__newslette__folde__2BB470E3" FromRole="folder" ToRole="newsletter" />
+          <NavigationProperty Name="usergroups" Relationship="Gcpe.ENewslettersModel.FK__usergroup__folde__7CF981FA" FromRole="folder" ToRole="usergroup" />
+        </EntityType>
+        <EntityType Name="htmlcomponent">
+          <Key>
+            <PropertyRef Name="htmlcomid" />
+          </Key>
+          <Property Name="htmlcomid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="articles" Relationship="Gcpe.ENewslettersModel.FK__article__htmlcom__5887175A" FromRole="htmlcomponent" ToRole="article" />
+          <NavigationProperty Name="boxcontents" Relationship="Gcpe.ENewslettersModel.FK__boxconten__htmlc__62108194" FromRole="htmlcomponent" ToRole="boxcontent" />
+          <NavigationProperty Name="newslettertemplates" Relationship="Gcpe.ENewslettersModel.FK__newslettertemplates_htmlcomponent" FromRole="htmlcomponent" ToRole="newslettertemplate" />
+        </EntityType>
+        <EntityType Name="newsletter">
+          <Key>
+            <PropertyRef Name="newsletterid" />
+          </Key>
+          <Property Name="newsletterid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="folderid" Type="Int32" />
+          <Property Name="ownerusergroupid" Type="Int32" />
+          <Property Name="nlStatus" Type="Int32" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuserid" Type="Int32" />
+          <Property Name="updatedate" Type="DateTime" Precision="3" />
+          <Property Name="updateuserid" Type="Int32" />
+          <Property Name="subscribeyn" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="approvers" Relationship="Gcpe.ENewslettersModel.FK__approver__newsle__52CE3E04" FromRole="newsletter" ToRole="approver" />
+          <NavigationProperty Name="folder" Relationship="Gcpe.ENewslettersModel.FK__newslette__folde__2BB470E3" FromRole="newsletter" ToRole="folder" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__newslette__creat__3AF6B473" FromRole="newsletter" ToRole="user" />
+          <NavigationProperty Name="usergroup" Relationship="Gcpe.ENewslettersModel.FK__newslette__owner__2D9CB955" FromRole="newsletter" ToRole="usergroup" />
+          <NavigationProperty Name="user1" Relationship="Gcpe.ENewslettersModel.FK__newslette__updat__3CDEFCE5" FromRole="newsletter" ToRole="user" />
+          <NavigationProperty Name="NewsletterUserAuthors" Relationship="Gcpe.ENewslettersModel.FK__NewsletterUserAuthor__newsletter" FromRole="newsletter" ToRole="NewsletterUserAuthor" />
+          <NavigationProperty Name="newslettertemplates" Relationship="Gcpe.ENewslettersModel.FK_newslettertemplates_newsletter" FromRole="newsletter" ToRole="newslettertemplate" />
+          <NavigationProperty Name="NewsletterUserDistributors" Relationship="Gcpe.ENewslettersModel.FK_NewsletterUserDistributor_newsletter" FromRole="newsletter" ToRole="NewsletterUserDistributor" />
+          <Property Name="description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="key" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="newsletterbox">
+          <Key>
+            <PropertyRef Name="newsletterboxid" />
+          </Key>
+          <Property Name="newsletterboxid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="boxtypeid" Type="Int32" />
+          <Property Name="transparent" Type="Int32" />
+          <Property Name="bgcolorid" Type="Int32" />
+          <Property Name="cornertypeid" Type="Int32" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="boxcontents" Relationship="Gcpe.ENewslettersModel.FK__boxconten__newsl__611C5D5B" FromRole="newsletterbox" ToRole="boxcontent" />
+          <NavigationProperty Name="boxtype" Relationship="Gcpe.ENewslettersModel.FK__newslette__boxty__40AF8DC9" FromRole="newsletterbox" ToRole="boxtype" />
+          <NavigationProperty Name="color" Relationship="Gcpe.ENewslettersModel.FK__newslette__bgcol__41A3B202" FromRole="newsletterbox" ToRole="color" />
+          <NavigationProperty Name="cornertype" Relationship="Gcpe.ENewslettersModel.FK__newslette__corne__4297D63B" FromRole="newsletterbox" ToRole="cornertype" />
+          <NavigationProperty Name="NewsletterTemplatesBoxes" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBoxes_newsletterbox" FromRole="newsletterbox" ToRole="NewsletterTemplatesBox" />
+        </EntityType>
+        <EntityType Name="newslettertemplate">
+          <Key>
+            <PropertyRef Name="newslettertemplateid" />
+          </Key>
+          <Property Name="newslettertemplateid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="newsletterid" Type="Int32" Nullable="false" />
+          <Property Name="version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bannerfileid" Type="Int32" />
+          <Property Name="banner_coords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="backgroundfileid" Type="Int32" />
+          <Property Name="backgroundcolorid" Type="Int32" />
+          <Property Name="footerfileid" Type="Int32" />
+          <Property Name="footercolorid" Type="Int32" />
+          <Property Name="footer_coords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="footer_contact_link" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="footer_area_link" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="artfileid" Type="Int32" />
+          <Property Name="artcolorid" Type="Int32" />
+          <Property Name="htmlcomid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="editions" Relationship="Gcpe.ENewslettersModel.FK__edition_newslettertemplates" FromRole="newslettertemplate" ToRole="edition" />
+          <NavigationProperty Name="htmlcomponent" Relationship="Gcpe.ENewslettersModel.FK__newslettertemplates_htmlcomponent" FromRole="newslettertemplate" ToRole="htmlcomponent" />
+          <NavigationProperty Name="newsletter" Relationship="Gcpe.ENewslettersModel.FK_newslettertemplates_newsletter" FromRole="newslettertemplate" ToRole="newsletter" />
+          <NavigationProperty Name="NewsletterTemplatesBannerImages" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBannerImage_newslettertemplates" FromRole="newslettertemplate" ToRole="NewsletterTemplatesBannerImage" />
+          <NavigationProperty Name="NewsletterTemplatesBoxes" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBoxes_newslettertemplates" FromRole="newslettertemplate" ToRole="NewsletterTemplatesBox" />
+          <NavigationProperty Name="NewsletterTemplatesFooterImages" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesFooterImage_newslettertemplates" FromRole="newslettertemplate" ToRole="NewsletterTemplatesFooterImage" />
+          <NavigationProperty Name="NewsletterTemplatesFooterLinks" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesFooterLink_newslettertemplates" FromRole="newslettertemplate" ToRole="NewsletterTemplatesFooterLink" />
+        </EntityType>
+        <EntityType Name="NewsletterTemplatesBannerImage">
+          <Key>
+            <PropertyRef Name="newslettertemplatebannerimageid" />
+          </Key>
+          <Property Name="newslettertemplatebannerimageid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="newslettertemplateid" Type="Int32" Nullable="false" />
+          <Property Name="coordinates" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="newslettertemplate" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBannerImage_newslettertemplates" FromRole="NewsletterTemplatesBannerImage" ToRole="newslettertemplate" />
+        </EntityType>
+        <EntityType Name="NewsletterTemplatesBox">
+          <Key>
+            <PropertyRef Name="newslettertemplatesboxid" />
+          </Key>
+          <Property Name="newslettertemplatesboxid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="newsletterboxid" Type="Int32" />
+          <Property Name="newslettertemplateid" Type="Int32" />
+          <NavigationProperty Name="newsletterbox" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBoxes_newsletterbox" FromRole="NewsletterTemplatesBox" ToRole="newsletterbox" />
+          <NavigationProperty Name="newslettertemplate" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBoxes_newslettertemplates" FromRole="NewsletterTemplatesBox" ToRole="newslettertemplate" />
+        </EntityType>
+        <EntityType Name="NewsletterTemplatesFooterImage">
+          <Key>
+            <PropertyRef Name="newslettertemplatefooterimageid" />
+          </Key>
+          <Property Name="newslettertemplatefooterimageid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="newslettertemplateid" Type="Int32" Nullable="false" />
+          <Property Name="coordinates" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="newslettertemplate" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesFooterImage_newslettertemplates" FromRole="NewsletterTemplatesFooterImage" ToRole="newslettertemplate" />
+        </EntityType>
+        <EntityType Name="NewsletterTemplatesFooterLink">
+          <Key>
+            <PropertyRef Name="newslettertemplatefooterlinkid" />
+          </Key>
+          <Property Name="newslettertemplatefooterlinkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="newslettertemplateid" Type="Int32" Nullable="false" />
+          <Property Name="link_text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="link_url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="link_order" Type="Int32" />
+          <NavigationProperty Name="newslettertemplate" Relationship="Gcpe.ENewslettersModel.FK__NewsletterTemplatesFooterLink_newslettertemplates" FromRole="NewsletterTemplatesFooterLink" ToRole="newslettertemplate" />
+        </EntityType>
+        <EntityType Name="NewsletterUserAuthor">
+          <Key>
+            <PropertyRef Name="NewsletterUserAuthorId" />
+          </Key>
+          <Property Name="NewsletterUserAuthorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="newsletterid" Type="Int32" Nullable="false" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="roleauthor" Type="Boolean" />
+          <NavigationProperty Name="newsletter" Relationship="Gcpe.ENewslettersModel.FK__NewsletterUserAuthor__newsletter" FromRole="NewsletterUserAuthor" ToRole="newsletter" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__Newslette__useri__7B9B496D" FromRole="NewsletterUserAuthor" ToRole="user" />
+        </EntityType>
+        <EntityType Name="NewsletterUserDistributor">
+          <Key>
+            <PropertyRef Name="NewsletterUserDistributorId" />
+          </Key>
+          <Property Name="NewsletterUserDistributorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="newsletterid" Type="Int32" Nullable="false" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="roledistributor" Type="Boolean" />
+          <NavigationProperty Name="newsletter" Relationship="Gcpe.ENewslettersModel.FK_NewsletterUserDistributor_newsletter" FromRole="NewsletterUserDistributor" ToRole="newsletter" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__Newslette__useri__7F6BDA51" FromRole="NewsletterUserDistributor" ToRole="user" />
+        </EntityType>
+        <EntityType Name="PageCheck">
+          <Key>
+            <PropertyRef Name="PageCheckID" />
+          </Key>
+          <Property Name="PageCheckID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageType" Type="Int32" />
+          <Property Name="RecordID" Type="Int32" />
+          <Property Name="CheckoutUserID" Type="Int32" />
+          <Property Name="CheckoutTime" Type="DateTime" Precision="3" />
+          <Property Name="CheckinTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__PageCheck__Check__009508B4" FromRole="PageCheck" ToRole="user" />
+        </EntityType>
+        <EntityType Name="publishstatu">
+          <Key>
+            <PropertyRef Name="publishstatusid" />
+          </Key>
+          <Property Name="publishstatusid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="articles" Relationship="Gcpe.ENewslettersModel.FK__article__publish__597B3B93" FromRole="publishstatu" ToRole="article" />
+        </EntityType>
+        <EntityType Name="readcounter">
+          <Key>
+            <PropertyRef Name="readcounterid" />
+          </Key>
+          <Property Name="readcounterid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="articleid" Type="Int32" />
+          <Property Name="editionid" Type="Int32" />
+          <Property Name="emailrecipientid" Type="Int32" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="readdate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="upload">
+          <Key>
+            <PropertyRef Name="uploadid" />
+          </Key>
+          <Property Name="uploadid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="filedata" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="adminonly" Type="Boolean" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuserid" Type="Int32" />
+          <NavigationProperty Name="user" Relationship="Gcpe.ENewslettersModel.FK__upload__createus__7F36D027" FromRole="upload" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="active" Type="Int32" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idir_id" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rolepabadmin" Type="Int32" />
+          <Property Name="roleministryadmin" Type="Int32" />
+          <Property Name="roleauthor" Type="Int32" />
+          <Property Name="roledistributor" Type="Int32" />
+          <Property Name="roleapprover" Type="Int32" />
+          <Property Name="rolepublic" Type="Int32" />
+          <Property Name="createdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createuserid" Type="Int32" Nullable="false" />
+          <Property Name="updatedate" Type="DateTime" Precision="3" />
+          <Property Name="updateuserid" Type="Int32" />
+          <Property Name="usergroupId" Type="Int32" />
+          <NavigationProperty Name="approvers" Relationship="Gcpe.ENewslettersModel.FK__approver__userid__53C2623D" FromRole="user" ToRole="approver" />
+          <NavigationProperty Name="articles" Relationship="Gcpe.ENewslettersModel.FK__article__createu__5B638405" FromRole="user" ToRole="article" />
+          <NavigationProperty Name="articles1" Relationship="Gcpe.ENewslettersModel.FK__article__updateu__5D4BCC77" FromRole="user" ToRole="article" />
+          <NavigationProperty Name="editions" Relationship="Gcpe.ENewslettersModel.FK__edition__approve__4B2D1C3C" FromRole="user" ToRole="edition" />
+          <NavigationProperty Name="editions1" Relationship="Gcpe.ENewslettersModel.FK__edition__createu__4D1564AE" FromRole="user" ToRole="edition" />
+          <NavigationProperty Name="editions2" Relationship="Gcpe.ENewslettersModel.FK__edition__updateu__4EFDAD20" FromRole="user" ToRole="edition" />
+          <NavigationProperty Name="files" Relationship="Gcpe.ENewslettersModel.FK__file__createuser__086B34A6" FromRole="user" ToRole="file" />
+          <NavigationProperty Name="folders" Relationship="Gcpe.ENewslettersModel.FK__folder__createus__7A1D154F" FromRole="user" ToRole="folder" />
+          <NavigationProperty Name="newsletters" Relationship="Gcpe.ENewslettersModel.FK__newslette__creat__3AF6B473" FromRole="user" ToRole="newsletter" />
+          <NavigationProperty Name="newsletters1" Relationship="Gcpe.ENewslettersModel.FK__newslette__updat__3CDEFCE5" FromRole="user" ToRole="newsletter" />
+          <NavigationProperty Name="NewsletterUserAuthors" Relationship="Gcpe.ENewslettersModel.FK__Newslette__useri__7B9B496D" FromRole="user" ToRole="NewsletterUserAuthor" />
+          <NavigationProperty Name="NewsletterUserDistributors" Relationship="Gcpe.ENewslettersModel.FK__Newslette__useri__7F6BDA51" FromRole="user" ToRole="NewsletterUserDistributor" />
+          <NavigationProperty Name="PageChecks" Relationship="Gcpe.ENewslettersModel.FK__PageCheck__Check__009508B4" FromRole="user" ToRole="PageCheck" />
+          <NavigationProperty Name="uploads" Relationship="Gcpe.ENewslettersModel.FK__upload__createus__7F36D027" FromRole="user" ToRole="upload" />
+          <NavigationProperty Name="user1" Relationship="Gcpe.ENewslettersModel.FK__user__updateuser__75586032" FromRole="user" ToRole="user1" />
+          <NavigationProperty Name="user2" Relationship="Gcpe.ENewslettersModel.FK__user__updateuser__75586032" FromRole="user1" ToRole="user" />
+        </EntityType>
+        <EntityType Name="usergroup">
+          <Key>
+            <PropertyRef Name="usergroupid" />
+          </Key>
+          <Property Name="usergroupid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="folderid" Type="Int32" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="bgcolor_default" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="footercolor_default" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="newsletter_link" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="latestedition_link" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="folder" Relationship="Gcpe.ENewslettersModel.FK__usergroup__folde__7CF981FA" FromRole="usergroup" ToRole="folder" />
+          <NavigationProperty Name="newsletters" Relationship="Gcpe.ENewslettersModel.FK__newslette__owner__2D9CB955" FromRole="usergroup" ToRole="newsletter" />
+        </EntityType>
+        <EntityType Name="edition_history">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="editionid" Type="Int32" />
+          <Property Name="changedate" Type="DateTime" Precision="3" />
+          <Property Name="changebyuserid" Type="Int32" />
+          <Property Name="changetxt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__approver__newsle__52CE3E04">
+          <End Type="Gcpe.ENewslettersModel.newsletter" Role="newsletter" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.approver" Role="approver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletter">
+              <PropertyRef Name="newsletterid" />
+            </Principal>
+            <Dependent Role="approver">
+              <PropertyRef Name="newsletterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__approver__userid__53C2623D">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.approver" Role="approver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="approver">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__createu__5B638405">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.article" Role="article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__edition__569ECEE8">
+          <End Type="Gcpe.ENewslettersModel.edition" Role="edition" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.article" Role="article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="edition">
+              <PropertyRef Name="editionid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="editionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__htmlcom__5887175A">
+          <End Type="Gcpe.ENewslettersModel.htmlcomponent" Role="htmlcomponent" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.article" Role="article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="htmlcomponent">
+              <PropertyRef Name="htmlcomid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="htmlcomid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__publish__597B3B93">
+          <End Type="Gcpe.ENewslettersModel.publishstatu" Role="publishstatu" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.article" Role="article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publishstatu">
+              <PropertyRef Name="publishstatusid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="publishstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__article__updateu__5D4BCC77">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.article" Role="article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="updateuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__boxconten__editi__60283922">
+          <End Type="Gcpe.ENewslettersModel.edition" Role="edition" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.boxcontent" Role="boxcontent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="edition">
+              <PropertyRef Name="editionid" />
+            </Principal>
+            <Dependent Role="boxcontent">
+              <PropertyRef Name="editionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__boxconten__htmlc__62108194">
+          <End Type="Gcpe.ENewslettersModel.htmlcomponent" Role="htmlcomponent" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.boxcontent" Role="boxcontent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="htmlcomponent">
+              <PropertyRef Name="htmlcomid" />
+            </Principal>
+            <Dependent Role="boxcontent">
+              <PropertyRef Name="htmlcomid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__boxconten__maste__6304A5CD">
+          <End Type="Gcpe.ENewslettersModel.boxcontent" Role="boxcontent" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.boxcontent" Role="boxcontent1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="boxcontent">
+              <PropertyRef Name="boxcontentid" />
+            </Principal>
+            <Dependent Role="boxcontent1">
+              <PropertyRef Name="masterboxcontentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__boxconten__newsl__611C5D5B">
+          <End Type="Gcpe.ENewslettersModel.newsletterbox" Role="newsletterbox" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.boxcontent" Role="boxcontent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletterbox">
+              <PropertyRef Name="newsletterboxid" />
+            </Principal>
+            <Dependent Role="boxcontent">
+              <PropertyRef Name="newsletterboxid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__boxty__40AF8DC9">
+          <End Type="Gcpe.ENewslettersModel.boxtype" Role="boxtype" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.newsletterbox" Role="newsletterbox" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="boxtype">
+              <PropertyRef Name="boxtypeid" />
+            </Principal>
+            <Dependent Role="newsletterbox">
+              <PropertyRef Name="boxtypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__bgcol__41A3B202">
+          <End Type="Gcpe.ENewslettersModel.color" Role="color" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.newsletterbox" Role="newsletterbox" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="color">
+              <PropertyRef Name="colorid" />
+            </Principal>
+            <Dependent Role="newsletterbox">
+              <PropertyRef Name="bgcolorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__corne__4297D63B">
+          <End Type="Gcpe.ENewslettersModel.cornertype" Role="cornertype" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.newsletterbox" Role="newsletterbox" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cornertype">
+              <PropertyRef Name="cornertypeid" />
+            </Principal>
+            <Dependent Role="newsletterbox">
+              <PropertyRef Name="cornertypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition__approve__4B2D1C3C">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.edition" Role="edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="approveruserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition__createu__4D1564AE">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.edition" Role="edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition__folderi__4944D3CA">
+          <End Type="Gcpe.ENewslettersModel.folder" Role="folder" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.edition" Role="edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="folderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition__updateu__4EFDAD20">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.edition" Role="edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="updateuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__edition_newslettertemplates">
+          <End Type="Gcpe.ENewslettersModel.newslettertemplate" Role="newslettertemplate" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.edition" Role="edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplate">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="edition">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__file__createuser__086B34A6">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.file" Role="file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__file__folderid__058EC7FB">
+          <End Type="Gcpe.ENewslettersModel.folder" Role="folder" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.file" Role="file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="folderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__folder__createus__7A1D154F">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.folder" Role="folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="folder">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__folder__parentfo__7834CCDD">
+          <End Type="Gcpe.ENewslettersModel.folder" Role="folder" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.folder" Role="folder1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="folder1">
+              <PropertyRef Name="parentfolderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__folde__2BB470E3">
+          <End Type="Gcpe.ENewslettersModel.folder" Role="folder" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.newsletter" Role="newsletter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="newsletter">
+              <PropertyRef Name="folderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usergroup__folde__7CF981FA">
+          <End Type="Gcpe.ENewslettersModel.folder" Role="folder" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.usergroup" Role="usergroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="folder">
+              <PropertyRef Name="folderid" />
+            </Principal>
+            <Dependent Role="usergroup">
+              <PropertyRef Name="folderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslettertemplates_htmlcomponent">
+          <End Type="Gcpe.ENewslettersModel.htmlcomponent" Role="htmlcomponent" Multiplicity="1" />
+          <End Type="Gcpe.ENewslettersModel.newslettertemplate" Role="newslettertemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="htmlcomponent">
+              <PropertyRef Name="htmlcomid" />
+            </Principal>
+            <Dependent Role="newslettertemplate">
+              <PropertyRef Name="htmlcomid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__creat__3AF6B473">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.newsletter" Role="newsletter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="newsletter">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__owner__2D9CB955">
+          <End Type="Gcpe.ENewslettersModel.usergroup" Role="usergroup" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.newsletter" Role="newsletter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usergroup">
+              <PropertyRef Name="usergroupid" />
+            </Principal>
+            <Dependent Role="newsletter">
+              <PropertyRef Name="ownerusergroupid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__newslette__updat__3CDEFCE5">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.newsletter" Role="newsletter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="newsletter">
+              <PropertyRef Name="updateuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterUserAuthor__newsletter">
+          <End Type="Gcpe.ENewslettersModel.newsletter" Role="newsletter" Multiplicity="1" />
+          <End Type="Gcpe.ENewslettersModel.NewsletterUserAuthor" Role="NewsletterUserAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletter">
+              <PropertyRef Name="newsletterid" />
+            </Principal>
+            <Dependent Role="NewsletterUserAuthor">
+              <PropertyRef Name="newsletterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_newslettertemplates_newsletter">
+          <End Type="Gcpe.ENewslettersModel.newsletter" Role="newsletter" Multiplicity="1" />
+          <End Type="Gcpe.ENewslettersModel.newslettertemplate" Role="newslettertemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletter">
+              <PropertyRef Name="newsletterid" />
+            </Principal>
+            <Dependent Role="newslettertemplate">
+              <PropertyRef Name="newsletterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewsletterUserDistributor_newsletter">
+          <End Type="Gcpe.ENewslettersModel.newsletter" Role="newsletter" Multiplicity="1" />
+          <End Type="Gcpe.ENewslettersModel.NewsletterUserDistributor" Role="NewsletterUserDistributor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletter">
+              <PropertyRef Name="newsletterid" />
+            </Principal>
+            <Dependent Role="NewsletterUserDistributor">
+              <PropertyRef Name="newsletterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesBoxes_newsletterbox">
+          <End Type="Gcpe.ENewslettersModel.newsletterbox" Role="newsletterbox" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.NewsletterTemplatesBox" Role="NewsletterTemplatesBox" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newsletterbox">
+              <PropertyRef Name="newsletterboxid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesBox">
+              <PropertyRef Name="newsletterboxid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesBannerImage_newslettertemplates">
+          <End Type="Gcpe.ENewslettersModel.newslettertemplate" Role="newslettertemplate" Multiplicity="1" />
+          <End Type="Gcpe.ENewslettersModel.NewsletterTemplatesBannerImage" Role="NewsletterTemplatesBannerImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplate">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesBannerImage">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesBoxes_newslettertemplates">
+          <End Type="Gcpe.ENewslettersModel.newslettertemplate" Role="newslettertemplate" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.NewsletterTemplatesBox" Role="NewsletterTemplatesBox" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplate">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesBox">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesFooterImage_newslettertemplates">
+          <End Type="Gcpe.ENewslettersModel.newslettertemplate" Role="newslettertemplate" Multiplicity="1" />
+          <End Type="Gcpe.ENewslettersModel.NewsletterTemplatesFooterImage" Role="NewsletterTemplatesFooterImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplate">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesFooterImage">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewsletterTemplatesFooterLink_newslettertemplates">
+          <End Type="Gcpe.ENewslettersModel.newslettertemplate" Role="newslettertemplate" Multiplicity="1" />
+          <End Type="Gcpe.ENewslettersModel.NewsletterTemplatesFooterLink" Role="NewsletterTemplatesFooterLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="newslettertemplate">
+              <PropertyRef Name="newslettertemplateid" />
+            </Principal>
+            <Dependent Role="NewsletterTemplatesFooterLink">
+              <PropertyRef Name="newslettertemplateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Newslette__useri__7B9B496D">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="1" />
+          <End Type="Gcpe.ENewslettersModel.NewsletterUserAuthor" Role="NewsletterUserAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="NewsletterUserAuthor">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Newslette__useri__7F6BDA51">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="1" />
+          <End Type="Gcpe.ENewslettersModel.NewsletterUserDistributor" Role="NewsletterUserDistributor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="NewsletterUserDistributor">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageCheck__Check__009508B4">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.PageCheck" Role="PageCheck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="PageCheck">
+              <PropertyRef Name="CheckoutUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__upload__createus__7F36D027">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.upload" Role="upload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="upload">
+              <PropertyRef Name="createuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__user__updateuser__75586032">
+          <End Type="Gcpe.ENewslettersModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="Gcpe.ENewslettersModel.user" Role="user1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="user1">
+              <PropertyRef Name="updateuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GcpeENewslettersModelStoreContainer" CdmEntityContainer="ENewslettersEntities">
+          <EntitySetMapping Name="approvers">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.approver">
+              <MappingFragment StoreEntitySet="approver">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="newsletterid" ColumnName="newsletterid" />
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="articles">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.article">
+              <MappingFragment StoreEntitySet="article">
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="foldername" ColumnName="foldername" />
+                <ScalarProperty Name="updateuserid" ColumnName="updateuserid" />
+                <ScalarProperty Name="updatedate" ColumnName="updatedate" />
+                <ScalarProperty Name="createuserid" ColumnName="createuserid" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="publishstatus" ColumnName="publishstatus" />
+                <ScalarProperty Name="htmlcomid" ColumnName="htmlcomid" />
+                <ScalarProperty Name="aritcledate" ColumnName="aritcledate" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="editionid" ColumnName="editionid" />
+                <ScalarProperty Name="articleid" ColumnName="articleid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="boxcontents">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.boxcontent">
+              <MappingFragment StoreEntitySet="boxcontent">
+                <ScalarProperty Name="hyperlinktarget" ColumnName="hyperlinktarget" />
+                <ScalarProperty Name="masterboxcontentid" ColumnName="masterboxcontentid" />
+                <ScalarProperty Name="positionorder" ColumnName="positionorder" />
+                <ScalarProperty Name="positioncolumn" ColumnName="positioncolumn" />
+                <ScalarProperty Name="readmorelink" ColumnName="readmorelink" />
+                <ScalarProperty Name="htmlcomid" ColumnName="htmlcomid" />
+                <ScalarProperty Name="hyperlink" ColumnName="hyperlink" />
+                <ScalarProperty Name="picturealttext" ColumnName="picturealttext" />
+                <ScalarProperty Name="picturename" ColumnName="picturename" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="newsletterboxid" ColumnName="newsletterboxid" />
+                <ScalarProperty Name="editionid" ColumnName="editionid" />
+                <ScalarProperty Name="boxcontentid" ColumnName="boxcontentid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="boxtypes">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.boxtype">
+              <MappingFragment StoreEntitySet="boxtype">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="boxtypeid" ColumnName="boxtypeid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="colors">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.color">
+              <MappingFragment StoreEntitySet="color">
+                <ScalarProperty Name="blue" ColumnName="blue" />
+                <ScalarProperty Name="green" ColumnName="green" />
+                <ScalarProperty Name="red" ColumnName="red" />
+                <ScalarProperty Name="colorid" ColumnName="colorid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cornertypes">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.cornertype">
+              <MappingFragment StoreEntitySet="cornertype">
+                <ScalarProperty Name="radius" ColumnName="radius" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="cornertypeid" ColumnName="cornertypeid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="editions">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.edition">
+              <MappingFragment StoreEntitySet="edition">
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="originalDistributeDt" ColumnName="originalDistributeDt" />
+                <ScalarProperty Name="newslettertemplateid" ColumnName="newslettertemplateid" />
+                <ScalarProperty Name="originalPublishDt" ColumnName="originalPublishDt" />
+                <ScalarProperty Name="displayPublic" ColumnName="displayPublic" />
+                <ScalarProperty Name="distributeAvailable" ColumnName="distributeAvailable" />
+                <ScalarProperty Name="distributedPreviously" ColumnName="distributedPreviously" />
+                <ScalarProperty Name="ispublish" ColumnName="ispublish" />
+                <ScalarProperty Name="fontsize" ColumnName="fontsize" />
+                <ScalarProperty Name="approvedate" ColumnName="approvedate" />
+                <ScalarProperty Name="updateuserid" ColumnName="updateuserid" />
+                <ScalarProperty Name="updatedate" ColumnName="updatedate" />
+                <ScalarProperty Name="createuserid" ColumnName="createuserid" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="approveruserid" ColumnName="approveruserid" />
+                <ScalarProperty Name="subscriberCount" ColumnName="subscriberCount" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="folderid" ColumnName="folderid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="newsletterid" ColumnName="newsletterid" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="editionid" ColumnName="editionid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="files">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.file">
+              <MappingFragment StoreEntitySet="file">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="createuserid" ColumnName="createuserid" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="fsize" ColumnName="fsize" />
+                <ScalarProperty Name="ftype" ColumnName="ftype" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="folderid" ColumnName="folderid" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="fileid" ColumnName="fileid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="folders">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.folder">
+              <MappingFragment StoreEntitySet="folder">
+                <ScalarProperty Name="createuserid" ColumnName="createuserid" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="parentfolderid" ColumnName="parentfolderid" />
+                <ScalarProperty Name="folderid" ColumnName="folderid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="htmlcomponents">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.htmlcomponent">
+              <MappingFragment StoreEntitySet="htmlcomponent">
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="htmlcomid" ColumnName="htmlcomid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="newsletters">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.newsletter">
+              <MappingFragment StoreEntitySet="newsletter">
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="subscribeyn" ColumnName="subscribeyn" />
+                <ScalarProperty Name="updateuserid" ColumnName="updateuserid" />
+                <ScalarProperty Name="updatedate" ColumnName="updatedate" />
+                <ScalarProperty Name="createuserid" ColumnName="createuserid" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="nlStatus" ColumnName="nlStatus" />
+                <ScalarProperty Name="ownerusergroupid" ColumnName="ownerusergroupid" />
+                <ScalarProperty Name="folderid" ColumnName="folderid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="newsletterid" ColumnName="newsletterid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="newsletterboxes">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.newsletterbox">
+              <MappingFragment StoreEntitySet="newsletterbox">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="cornertypeid" ColumnName="cornertypeid" />
+                <ScalarProperty Name="bgcolorid" ColumnName="bgcolorid" />
+                <ScalarProperty Name="transparent" ColumnName="transparent" />
+                <ScalarProperty Name="boxtypeid" ColumnName="boxtypeid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="newsletterboxid" ColumnName="newsletterboxid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="newslettertemplates">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.newslettertemplate">
+              <MappingFragment StoreEntitySet="newslettertemplates">
+                <ScalarProperty Name="htmlcomid" ColumnName="htmlcomid" />
+                <ScalarProperty Name="artcolorid" ColumnName="artcolorid" />
+                <ScalarProperty Name="artfileid" ColumnName="artfileid" />
+                <ScalarProperty Name="footer_area_link" ColumnName="footer_area_link" />
+                <ScalarProperty Name="footer_contact_link" ColumnName="footer_contact_link" />
+                <ScalarProperty Name="footer_coords" ColumnName="footer_coords" />
+                <ScalarProperty Name="footercolorid" ColumnName="footercolorid" />
+                <ScalarProperty Name="footerfileid" ColumnName="footerfileid" />
+                <ScalarProperty Name="backgroundcolorid" ColumnName="backgroundcolorid" />
+                <ScalarProperty Name="backgroundfileid" ColumnName="backgroundfileid" />
+                <ScalarProperty Name="banner_coords" ColumnName="banner_coords" />
+                <ScalarProperty Name="bannerfileid" ColumnName="bannerfileid" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="newsletterid" ColumnName="newsletterid" />
+                <ScalarProperty Name="newslettertemplateid" ColumnName="newslettertemplateid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsletterTemplatesBannerImages">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.NewsletterTemplatesBannerImage">
+              <MappingFragment StoreEntitySet="NewsletterTemplatesBannerImage">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="coordinates" ColumnName="coordinates" />
+                <ScalarProperty Name="newslettertemplateid" ColumnName="newslettertemplateid" />
+                <ScalarProperty Name="newslettertemplatebannerimageid" ColumnName="newslettertemplatebannerimageid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsletterTemplatesBoxes">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.NewsletterTemplatesBox">
+              <MappingFragment StoreEntitySet="NewsletterTemplatesBoxes">
+                <ScalarProperty Name="newslettertemplateid" ColumnName="newslettertemplateid" />
+                <ScalarProperty Name="newsletterboxid" ColumnName="newsletterboxid" />
+                <ScalarProperty Name="newslettertemplatesboxid" ColumnName="newslettertemplatesboxid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsletterTemplatesFooterImages">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.NewsletterTemplatesFooterImage">
+              <MappingFragment StoreEntitySet="NewsletterTemplatesFooterImage">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="coordinates" ColumnName="coordinates" />
+                <ScalarProperty Name="newslettertemplateid" ColumnName="newslettertemplateid" />
+                <ScalarProperty Name="newslettertemplatefooterimageid" ColumnName="newslettertemplatefooterimageid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsletterTemplatesFooterLinks">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.NewsletterTemplatesFooterLink">
+              <MappingFragment StoreEntitySet="NewsletterTemplatesFooterLink">
+                <ScalarProperty Name="link_order" ColumnName="link_order" />
+                <ScalarProperty Name="link_url" ColumnName="link_url" />
+                <ScalarProperty Name="link_text" ColumnName="link_text" />
+                <ScalarProperty Name="newslettertemplateid" ColumnName="newslettertemplateid" />
+                <ScalarProperty Name="newslettertemplatefooterlinkid" ColumnName="newslettertemplatefooterlinkid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsletterUserAuthors">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.NewsletterUserAuthor">
+              <MappingFragment StoreEntitySet="NewsletterUserAuthor">
+                <ScalarProperty Name="roleauthor" ColumnName="roleauthor" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="newsletterid" ColumnName="newsletterid" />
+                <ScalarProperty Name="NewsletterUserAuthorId" ColumnName="NewsletterUserAuthorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsletterUserDistributors">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.NewsletterUserDistributor">
+              <MappingFragment StoreEntitySet="NewsletterUserDistributor">
+                <ScalarProperty Name="roledistributor" ColumnName="roledistributor" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="newsletterid" ColumnName="newsletterid" />
+                <ScalarProperty Name="NewsletterUserDistributorId" ColumnName="NewsletterUserDistributorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PageChecks">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.PageCheck">
+              <MappingFragment StoreEntitySet="PageCheck">
+                <ScalarProperty Name="CheckinTime" ColumnName="CheckinTime" />
+                <ScalarProperty Name="CheckoutTime" ColumnName="CheckoutTime" />
+                <ScalarProperty Name="CheckoutUserID" ColumnName="CheckoutUserID" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+                <ScalarProperty Name="PageType" ColumnName="PageType" />
+                <ScalarProperty Name="PageCheckID" ColumnName="PageCheckID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="publishstatus">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.publishstatu">
+              <MappingFragment StoreEntitySet="publishstatus">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="publishstatusid" ColumnName="publishstatusid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="readcounters">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.readcounter">
+              <MappingFragment StoreEntitySet="readcounter">
+                <ScalarProperty Name="readdate" ColumnName="readdate" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="emailrecipientid" ColumnName="emailrecipientid" />
+                <ScalarProperty Name="editionid" ColumnName="editionid" />
+                <ScalarProperty Name="articleid" ColumnName="articleid" />
+                <ScalarProperty Name="readcounterid" ColumnName="readcounterid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uploads">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.upload">
+              <MappingFragment StoreEntitySet="upload">
+                <ScalarProperty Name="createuserid" ColumnName="createuserid" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="adminonly" ColumnName="adminonly" />
+                <ScalarProperty Name="filedata" ColumnName="filedata" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="uploadid" ColumnName="uploadid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="usergroupId" ColumnName="usergroupId" />
+                <ScalarProperty Name="updateuserid" ColumnName="updateuserid" />
+                <ScalarProperty Name="updatedate" ColumnName="updatedate" />
+                <ScalarProperty Name="createuserid" ColumnName="createuserid" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="rolepublic" ColumnName="rolepublic" />
+                <ScalarProperty Name="roleapprover" ColumnName="roleapprover" />
+                <ScalarProperty Name="roledistributor" ColumnName="roledistributor" />
+                <ScalarProperty Name="roleauthor" ColumnName="roleauthor" />
+                <ScalarProperty Name="roleministryadmin" ColumnName="roleministryadmin" />
+                <ScalarProperty Name="rolepabadmin" ColumnName="rolepabadmin" />
+                <ScalarProperty Name="idir_id" ColumnName="idir_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usergroups">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.usergroup">
+              <MappingFragment StoreEntitySet="usergroup">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="latestedition_link" ColumnName="latestedition_link" />
+                <ScalarProperty Name="newsletter_link" ColumnName="newsletter_link" />
+                <ScalarProperty Name="footercolor_default" ColumnName="footercolor_default" />
+                <ScalarProperty Name="bgcolor_default" ColumnName="bgcolor_default" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="folderid" ColumnName="folderid" />
+                <ScalarProperty Name="usergroupid" ColumnName="usergroupid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="edition_history">
+            <EntityTypeMapping TypeName="Gcpe.ENewslettersModel.edition_history">
+              <MappingFragment StoreEntitySet="edition_history">
+                <ScalarProperty Name="changetxt" ColumnName="changetxt" />
+                <ScalarProperty Name="changebyuserid" ColumnName="changebyuserid" />
+                <ScalarProperty Name="changedate" ColumnName="changedate" />
+                <ScalarProperty Name="editionid" ColumnName="editionid" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

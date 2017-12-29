@@ -1,0 +1,671 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "Gcpe.ENewsletters"
+  },
+  "host": "localhost:2832",
+  "schemes": [ "http" ],
+  "paths": {
+    "/GetNewslettersPublicOnly": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetNewslettersPublicOnly",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/PublicNewsletterListings" }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetNewslettersPublicOnlyWithSubscribe": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetNewslettersPublicOnlyWithSubscribe",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/NewsletterList" }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetNewslettersByMinistry": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetNewslettersByMinistry",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "newsletterIdsCsv",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Tuple[String,String]" }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetNewsletter": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetNewsletter",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "newsletterId",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Newsletter" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetNewslettersBySubscriptionRequest": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetNewslettersBySubscriptionRequest",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "groupGuidId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/NewsletterList" }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetNewslettersBySubscriber": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetNewslettersBySubscriber",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/NewsletterList" }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetEditionsPublicOnly": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetEditionsPublicOnly",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "newsletterId",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/EditionList" }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetEditionsAllPublicOnly": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetEditionsAllPublicOnly",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/EditionList" }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetEditionBodyKey": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetEditionBodyKey",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "newsletterKey",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "editionKey",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Tuple[String,DateTime]" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetNewsletterResourcesByGuid": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetNewsletterResourcesByGuid",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/NewsletterResource" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetArticlesAllPublicOnly": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetArticlesAllPublicOnly",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/ArticleList" }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetArticleBody": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetArticleBody",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "articlePath",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Tuple[String,DateTime]" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/GetSubscriberEmailBySubscriptionRequest": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetSubscriberEmailBySubscriptionRequest",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "groupGuidId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "string" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/SendUnsubscribeRequest": {
+      "post": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_SendUnsubscribeRequest",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "boolean" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/UnsubscribeByNewsletter": {
+      "post": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_UnsubscribeByNewsletter",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "subscriberGuid",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "string" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/UnsubscribeAllByEmail": {
+      "post": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_UnsubscribeAllByEmail",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "boolean" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/UnsubscribeAll": {
+      "post": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_UnsubscribeAll",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "subscriberGuid",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "boolean" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/InsertSubscriberNoConfirmation": {
+      "post": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_InsertSubscriberNoConfirmation",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "htmlFormat",
+            "in": "query",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "listOfDistributionListIds",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newGroupId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "format": "int32",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/InsertSubscriberAndSendConfirmation": {
+      "post": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_InsertSubscriberAndSendConfirmation",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "htmlFormat",
+            "in": "query",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "listOfDistributionListIds",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": { "204": { "description": "No Content" } },
+        "deprecated": false
+      }
+    },
+    "/UpdateSubscription": {
+      "post": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_UpdateSubscription",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "name": "groupGuidId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": { "204": { "description": "No Content" } },
+        "deprecated": false
+      }
+    },
+    "/GetNewsUrlFromNewslettersUrl": {
+      "get": {
+        "tags": [ "Newsletters" ],
+        "operationId": "Newsletters_GetNewsUrlFromNewslettersUrl",
+        "consumes": [],
+        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "string" }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "PublicNewsletterListings": {
+      "type": "object",
+      "properties": {
+        "MinistryID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "MinistryName": { "type": "string" },
+        "MinistryNewsletterArchiveLink": { "type": "string" },
+        "NewsletterID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "NewsletterDefaultDistributionListID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "NewsletterName": { "type": "string" },
+        "NewsletterHasSubscribeOption": { "type": "boolean" },
+        "LatestEditionURL": { "type": "string" },
+        "LatestEditionName": { "type": "string" },
+        "LatestPublishDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "NewsletterDescription": { "type": "string" },
+        "LatestEditionID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "LatestEditionKey": { "type": "string" },
+        "NewsletterKey": { "type": "string" }
+      }
+    },
+    "NewsletterList": {
+      "type": "object",
+      "properties": {
+        "NewsletterName": { "type": "string" },
+        "NewsletterDefaultDistributionListId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "Key": { "type": "string" }
+      }
+    },
+    "Tuple[String,String]": {
+      "type": "object",
+      "properties": {
+        "m_Item1": { "type": "string" },
+        "m_Item2": { "type": "string" }
+      }
+    },
+    "Newsletter": {
+      "type": "object",
+      "properties": {
+        "MinistryName": { "type": "string" },
+        "NewsletterID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "NewsletterDefaultDistributionListID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "NewsletterName": { "type": "string" },
+        "NewsletterHasSubscribeOption": { "type": "boolean" },
+        "NewsletterCreateDate": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "EditionList": {
+      "type": "object",
+      "properties": {
+        "NewsletterID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "NewsletterFolderName": { "type": "string" },
+        "EditionFolderName": { "type": "string" },
+        "EditionName": { "type": "string" },
+        "EditionID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "NewsletterKey": { "type": "string" },
+        "EditionKey": { "type": "string" },
+        "NewsletterName": { "type": "string" },
+        "Status": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "DisplayPublic": { "type": "boolean" }
+      }
+    },
+    "Tuple[String,DateTime]": {
+      "type": "object",
+      "properties": {
+        "m_Item1": { "type": "string" },
+        "m_Item2": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "NewsletterResource": {
+      "type": "object",
+      "properties": {
+        "FileName": { "type": "string" },
+        "ContentType": { "type": "string" },
+        "Content": {
+          "format": "byte",
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "ArticleList": {
+      "type": "object",
+      "properties": {
+        "ArticleID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "EditionName": { "type": "string" },
+        "EditionID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "NewsletterKey": { "type": "string" },
+        "EditionKey": { "type": "string" },
+        "NewsletterName": { "type": "string" },
+        "ArticleBody": { "type": "string" },
+        "ArticleCreateDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "ArticleFolder": { "type": "string" },
+        "EditionFolder": { "type": "string" },
+        "NewsletterFolder": { "type": "string" },
+        "ArticleKey": { "type": "string" }
+      }
+    }
+  }
+}

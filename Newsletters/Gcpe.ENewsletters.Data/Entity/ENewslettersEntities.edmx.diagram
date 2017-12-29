@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="234027b32890403496174ce098d1366b" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.approver" Width="1.5" PointX="2.75" PointY="6.375" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.article" Width="1.5" PointX="5.75" PointY="6.125" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.boxcontent" Width="1.5" PointX="17" PointY="16.875" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.boxtype" Width="1.5" PointX="12.5" PointY="3.75" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.color" Width="1.5" PointX="12.5" PointY="6.125" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.cornertype" Width="1.5" PointX="12.5" PointY="8.75" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.edition" Width="1.5" PointX="14.75" PointY="12.875" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.file" Width="1.5" PointX="5" PointY="14.125" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.folder" Width="1.5" PointX="2.75" PointY="24.75" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.htmlcomponent" Width="1.5" PointX="10.25" PointY="22.875" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.newsletter" Width="1.5" PointX="10.25" PointY="16.75" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.newsletterbox" Width="1.5" PointX="14.75" PointY="5.5" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.newslettertemplate" Width="1.5" PointX="12.5" PointY="18.5" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.NewsletterTemplatesBannerImage" Width="1.5" PointX="16.875" PointY="24.5" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.NewsletterTemplatesBox" Width="1.5" PointX="14.75" PointY="21.125" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.NewsletterTemplatesFooterImage" Width="1.5" PointX="10.75" PointY="26.125" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.NewsletterTemplatesFooterLink" Width="1.5" PointX="13.25" PointY="25.875" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.NewsletterUserAuthor" Width="1.5" PointX="12.5" PointY="14.875" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.NewsletterUserDistributor" Width="1.5" PointX="12.5" PointY="11.875" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.PageCheck" Width="1.5" PointX="2.75" PointY="9.5" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.publishstatu" Width="1.5" PointX="3.5" PointY="4" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.readcounter" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.upload" Width="1.5" PointX="2.75" PointY="12.5" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.user" Width="1.5" PointX="0.5" PointY="4.25" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.usergroup" Width="1.5" PointX="5" PointY="24.875" />
+        <EntityTypeShape EntityType="Gcpe.ENewslettersModel.edition_history" Width="1.5" PointX="4.875" PointY="0.75" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__approver__newsle__52CE3E04" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__approver__userid__53C2623D" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__article__createu__5B638405" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__article__edition__569ECEE8" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__article__htmlcom__5887175A" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__article__publish__597B3B93" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__article__updateu__5D4BCC77" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__boxconten__editi__60283922" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__boxconten__htmlc__62108194" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__boxconten__maste__6304A5CD" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__boxconten__newsl__611C5D5B" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__newslette__boxty__40AF8DC9" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__newslette__bgcol__41A3B202" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__newslette__corne__4297D63B" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__edition__approve__4B2D1C3C" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__edition__createu__4D1564AE" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__edition__folderi__4944D3CA" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__edition__updateu__4EFDAD20" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__edition_newslettertemplates" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__emailreci__subsc__04308F6E" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__file__createuser__086B34A6" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__file__folderid__058EC7FB" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__folder__createus__7A1D154F" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__folder__parentfo__7834CCDD" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__newslette__folde__2BB470E3" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__usergroup__folde__7CF981FA" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__newslettertemplates_htmlcomponent" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__newslette__creat__3AF6B473" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__newslette__owner__2D9CB955" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__newslette__updat__3CDEFCE5" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__NewsletterUserAuthor__newsletter" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK_newslettertemplates_newsletter" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK_NewsletterUserDistributor_newsletter" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBoxes_newsletterbox" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBannerImage_newslettertemplates" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesBoxes_newslettertemplates" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesFooterImage_newslettertemplates" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__NewsletterTemplatesFooterLink_newslettertemplates" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__Newslette__useri__7B9B496D" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__Newslette__useri__7F6BDA51" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__PageCheck__Check__009508B4" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__upload__createus__7F36D027" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__user__updateuser__75586032" />
+        <AssociationConnector Association="Gcpe.ENewslettersModel.FK__emailreci__email__5AA469F6" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

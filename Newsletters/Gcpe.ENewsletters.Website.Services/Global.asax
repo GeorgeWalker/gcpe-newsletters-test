@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Gcpe.ENewsletters.Global" Language="C#" %>
