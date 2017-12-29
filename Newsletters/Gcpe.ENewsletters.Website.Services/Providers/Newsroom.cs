@@ -2,12 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gcpe.ENewsletters.Data.Entity;
 
 namespace Gcpe.ENewsletters.Providers
 {
     public class Newsroom
     {
+        protected readonly ENewslettersEntities db;
+        public Newsroom (ENewslettersEntities db)
+        {
+            this.db = db;
+        }
+
         // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Newsroom" in code, svc and config file together.
         // NOTE: In order to launch WCF Test Client for testing this service, please select Newsroom.svc or Newsroom.svc.cs at the Solution Explorer and start debugging.
         public const string SUBSCRIBE_SOURCE_PUBLIC = "Public Signup Page";
@@ -19,8 +24,7 @@ namespace Gcpe.ENewsletters.Providers
         {
             List<PublicNewsletterListings> lst = new List<PublicNewsletterListings>();
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
-            {
+            
 
                 lst =
                     (
@@ -72,15 +76,14 @@ namespace Gcpe.ENewsletters.Providers
                     orderby x.MinistryName, x.NewsletterName, x.LatestEditionName ascending /* Wrapper to apply sort */
                     select x
                     ).ToList();
-            }
+            
 
             return lst;
         }
 
         public Tuple<string, string>[] GetNewslettersByMinistry(int[] newsletterIds)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
-            {
+            
                 var results = (from c in db.newsletters
                                where newsletterIds.Contains(c.newsletterid)
                                select new { key = c.key, name = c.name }
@@ -95,7 +98,7 @@ namespace Gcpe.ENewsletters.Providers
 
                 return newsletters.ToArray();
 
-            }
+           
         }
 
         public Newsletter GetNewsletter(int newsletterId)
@@ -103,8 +106,7 @@ namespace Gcpe.ENewsletters.Providers
 
             Newsletter item = new Newsletter();
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
-            {
+            
 
                 item =
                         (
@@ -122,7 +124,7 @@ namespace Gcpe.ENewsletters.Providers
                             NewsletterCreateDate = n.createdate,
                         }
                     ).Single();
-            }
+            
 
             return item;
         }
@@ -131,8 +133,6 @@ namespace Gcpe.ENewsletters.Providers
         {
             List<PublicNewsletterListings> lst = new List<PublicNewsletterListings>();
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
-            {
                 return (from e in db.editions
                         join ef in db.folders on e.folderid equals ef.folderid
                         join n in db.newsletters on e.newsletterid equals n.newsletterid
@@ -148,15 +148,13 @@ namespace Gcpe.ENewsletters.Providers
                             EditionFolderName = ef.description,
                             NewsletterFolderName = nf.description
                         }).ToList();
-            }
+            
         }
 
         public List<EditionList> GetEditions_All_PublicOnly()
         {
             List<PublicNewsletterListings> lst = new List<PublicNewsletterListings>();
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
-            {
                 return (from e in db.editions
                         join ef in db.folders on e.folderid equals ef.folderid
                         join n in db.newsletters on e.newsletterid equals n.newsletterid
@@ -176,7 +174,7 @@ namespace Gcpe.ENewsletters.Providers
                             DisplayPublic = e.displayPublic,
                             Status = e.active
                         }).ToList();
-            }
+            
         }
 
         public string GetNewsUrlFromNewslettersUrl(string url)
@@ -224,8 +222,7 @@ namespace Gcpe.ENewsletters.Providers
         public List<ArticleList> GetArticles_All_PublicOnly()
         {
             List<PublicNewsletterListings> lst = new List<PublicNewsletterListings>();
-            using (ENewslettersEntities db = new ENewslettersEntities())
-            {
+            
                 return
                          (from art in db.articles.Where(x => x.active != (int)ArticleStatus.Deleted)
                           join ed in db.editions.Where(x => x.active != (int)EditionStatus.Deleted) on art.editionid equals ed.editionid
@@ -246,7 +243,7 @@ namespace Gcpe.ENewsletters.Providers
                               NewsletterFolder = f1.description,
                               ArticleKey = art.key
                           }).ToList();
-            }
+            
         }
 
         #region Subscribe

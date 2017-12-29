@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+
 
 namespace Gcpe.ENewsletters.Templates
 {
+    using System.DrawingCore;
+    using System.DrawingCore.Imaging;
     using System.IO;
     using System.Web;
     
@@ -77,12 +81,12 @@ namespace Gcpe.ENewsletters.Templates
 
 
 
-        public static System.Drawing.Bitmap CreateImage(Gcpe.ENewsletters.Templates.Model.BoxStyle.BoxCornerType ct, 
+        public static Bitmap CreateImage(Gcpe.ENewsletters.Templates.Model.BoxStyle.BoxCornerType ct, 
             int width, int height, int red, int green, int blue)
         {
-            System.Drawing.Bitmap objBitmap = new System.Drawing.Bitmap(width, height);
-            System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(objBitmap);
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, 0, width, height);
+            Bitmap objBitmap = new Bitmap(width, height);
+            Graphics g = Graphics.FromImage(objBitmap);
+            RectangleF rect = new RectangleF(0, 0, width, height);
             int x, y, w, h, s, e;
             switch (ct)
             {
@@ -119,16 +123,16 @@ namespace Gcpe.ENewsletters.Templates
                     e = 360;
                     break;
                 default:
-                    g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(red, green, blue)), rect);
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(red, green, blue)), rect);
                     return objBitmap;
             }
-            g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.Red), rect);
+            g.FillRectangle(new SolidBrush(Color.Red), rect);
             //g.FillPie(new System.Drawing.SolidBrush(System.Drawing.Color.Red), -100, -100, 200, 200, 0, 90); //Bottom Right
             //g.FillPie(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 0, -100, 200, 200, 90, 180); //Bottom Left
             //g.FillPie(new System.Drawing.SolidBrush(System.Drawing.Color.Red), -100, 0, 200, 200, 270, 360); //Top Right
             //g.FillPie(new System.Drawing.SolidBrush(System.Drawing.Color.Red), 0, 0, 200, 200, 180, 270); //Top Left
-            g.FillPie(new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(red, green, blue)), x, y, w, h, s, e); //Top Left
-            objBitmap = MakeTransparentGif(objBitmap, System.Drawing.Color.Red);
+            g.FillPie(new SolidBrush(Color.FromArgb(red, green, blue)), x, y, w, h, s, e); //Top Left
+            objBitmap = MakeTransparentGif(objBitmap, Color.Red);
             return objBitmap;
         }
 
@@ -138,13 +142,13 @@ namespace Gcpe.ENewsletters.Templates
         /// <param name="bitmap">The Bitmap to make transparent.</param>
         /// <param name="color">The Color to make transparent.</param>
         /// <returns>New Bitmap containing a transparent background gif.</returns>
-        private static System.Drawing.Bitmap MakeTransparentGif(System.Drawing.Bitmap bitmap, System.Drawing.Color color)
+        private static Bitmap MakeTransparentGif(Bitmap bitmap, Color color)
         {
             byte R = color.R;
             byte G = color.G;
             byte B = color.B;
             MemoryStream fin = new MemoryStream();
-            bitmap.Save(fin, System.Drawing.Imaging.ImageFormat.Gif);
+            bitmap.Save(fin, ImageFormat.Gif);
             MemoryStream fout = new MemoryStream((int)fin.Length);
             int count = 0;
             byte[] buf = new byte[256];
@@ -202,7 +206,7 @@ namespace Gcpe.ENewsletters.Templates
             }
             fin.Close();
             fout.Flush();
-            return new System.Drawing.Bitmap(fout);
+            return new Bitmap(fout);
         }
 
 

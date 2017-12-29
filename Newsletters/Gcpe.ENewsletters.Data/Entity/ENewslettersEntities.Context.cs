@@ -9,21 +9,12 @@
 
 namespace Gcpe.ENewsletters.Data.Entity
 {
+    using Microsoft.EntityFrameworkCore;
     using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
+
     
     public partial class ENewslettersEntities : DbContext
-    {
-        public ENewslettersEntities()
-            : base("name=ENewslettersEntities")
-        {
-        }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
+    {    
     
         public virtual DbSet<approver> approvers { get; set; }
         public virtual DbSet<article> articles { get; set; }

@@ -9,7 +9,7 @@ namespace Gcpe.ENewsletters.Templates
     using Gcpe.ENewsletters.Data.Entity;
     using System.Text.RegularExpressions;
     using Model;
-    using HtmlAgilityPack;
+ 
 
     public class Edition
     {
