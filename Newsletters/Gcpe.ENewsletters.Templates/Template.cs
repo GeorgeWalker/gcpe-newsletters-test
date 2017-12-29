@@ -33,7 +33,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static bool IsOneColumnByNewsletter(int newsletterTemplateId)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 int newsletterTemplateHtmlComponentId = (from nt in db.newslettertemplates 
                                                 where nt.newslettertemplateid == newsletterTemplateId
@@ -46,7 +46,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static int GetNewsletterTemplateId(int editionId)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 return (from e in db.editions
                         where e.editionid == editionId
@@ -64,7 +64,7 @@ namespace Gcpe.ENewsletters.Templates
             string bodyBackground = string.Empty;
             string footer = string.Empty;
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
 
                 newslettertemplate nTemplate = (from nt in db.newslettertemplates 
@@ -89,7 +89,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             string template = string.Empty;
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 template = (from nt in db.htmlcomponents
                       where nt.htmlcomid == htmlComponentTemplateId
@@ -135,7 +135,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static string GetHeader(int newsletterTemplateId, int? bannerFileId, string getFileLocation)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 List<LinkArea> coords = (from h in db.NewsletterTemplatesBannerImages where h.newslettertemplateid == newsletterTemplateId select new LinkArea { Coordinates = h.coordinates, LinkUrl = h.url }).ToList();
                 return GetHeader(bannerFileId, coords, getFileLocation);
@@ -144,7 +144,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static string GetHeader(int? bannerFileId, List<LinkArea> coords, string getFileLocation)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 file f = (from x in db.files where x.fileid == bannerFileId.Value select x).FirstOrDefault();
 
@@ -193,7 +193,7 @@ namespace Gcpe.ENewsletters.Templates
         private static string GetBackgroundColorStyle(int colorId)
         {
             string style = string.Empty;
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 color clr = (from f in db.colors where f.colorid == colorId select f).FirstOrDefault();
                 string hex = Utility.GetHexFromRGB(clr.red.Value, clr.green.Value, clr.blue.Value);
@@ -204,7 +204,7 @@ namespace Gcpe.ENewsletters.Templates
         private static string GetBackgroundImageStyle(int imageId)
         {
             string style = string.Empty;
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 Guid? fileId = (from f in db.files where f.fileid == imageId select f.guid).FirstOrDefault();
                 style = String.Format("background-image:url(getfile.aspx?guid={0})", fileId.Value);
@@ -233,7 +233,7 @@ namespace Gcpe.ENewsletters.Templates
 
         private static string GetFooterWithColor(int templateId, int? colorId, string arealink, ViewTarget viewType)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 string hexValue = "ffffff";
 
@@ -253,7 +253,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static string GetFooterWithColor(int? templateId, string hexValue, string arealink, List<FooterLink> footerLinks, ViewTarget viewType)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 /*int distributionListId = -1; //The only time there isn't a value for templateId is when creating an new template
                 
@@ -302,7 +302,7 @@ namespace Gcpe.ENewsletters.Templates
         public static string GetFooterWithImageWithEmbededLinks(int templateId, int fileId, string getFileLocation, ViewTarget viewType)
         {
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 List<LinkArea> imageLinks = (from x in db.NewsletterTemplatesFooterImages where x.newslettertemplateid == templateId select new LinkArea { LinkUrl = x.url, Coordinates = x.coordinates }).ToList();
                 List<FooterLink> footerLinks = (from x in db.NewsletterTemplatesFooterLinks where x.newslettertemplateid == templateId orderby x.link_order select new FooterLink { DisplayText = x.link_text, LinkUrl = x.link_url }).ToList();
@@ -316,7 +316,7 @@ namespace Gcpe.ENewsletters.Templates
         public static string GetFooterWithImageWithEmbededLinks(int templateId, int fileId, List<LinkArea> imageLinks, List<FooterLink> footerLinks, string getFileLocation, ViewTarget viewType)
         {
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 file f = (from x in db.files where x.fileid == fileId select x).FirstOrDefault();
 

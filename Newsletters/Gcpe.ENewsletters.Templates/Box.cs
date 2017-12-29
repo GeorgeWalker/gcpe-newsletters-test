@@ -32,7 +32,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             BoxTypeOptions bxType;
             BoxStyle bxStyle;
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 var dbVals = (from newsbx in db.newsletterboxes
 
@@ -562,7 +562,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static IList<BoxContent> BoxContent(int editionid, int col)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 var items = (from b in db.boxcontents
                              join newsbx in db.newsletterboxes.Where(x => x.active == true) on b.newsletterboxid equals newsbx.newsletterboxid
@@ -611,7 +611,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static IList<BoxContent> BoxContent(int editionid)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 var items = (from b in db.boxcontents
 
@@ -662,7 +662,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static IList<BoxContent> BoxReplicants(int boxContentId)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 var items = (from b in db.boxcontents
 
@@ -715,7 +715,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static IList<BoxStyle> BoxStylesByNewsletterTemplate(int newsletterTemplateId)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 var items = (from newsbx in db.newsletterboxes.Where(x => x.active == true)
                              join ntb in db.NewsletterTemplatesBoxes on newsbx.newsletterboxid equals ntb.newsletterboxid
@@ -739,7 +739,7 @@ namespace Gcpe.ENewsletters.Templates
 
         public static BoxStyle BoxStyleByBox(int newsletterBoxId)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 var item = (from newsbx in db.newsletterboxes.Where(x => x.active == true)
                             join ntb in db.NewsletterTemplatesBoxes on newsbx.newsletterboxid equals ntb.newsletterboxid

@@ -19,7 +19,7 @@ namespace Gcpe.ENewsletters.Templates
         /// <returns>An encoded URL, ie. LNG_in_BC/ </returns>
         public static string GetNewsletterEncodedUrl(int newsletterId)
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 int? folderId = (from n in db.newsletters
                                  where n.newsletterid == newsletterId
@@ -47,7 +47,7 @@ namespace Gcpe.ENewsletters.Templates
             if (!isPublicVersion)
                 strPath = "Internal/edition";
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 string guid = (from e in db.editions
                                where e.editionid == eid
@@ -78,7 +78,7 @@ namespace Gcpe.ENewsletters.Templates
             string strTmp = string.Empty;
             Guid g = new Guid(id);
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 int folderid = -1;
                 int? fromDb;
@@ -120,7 +120,7 @@ namespace Gcpe.ENewsletters.Templates
                 strPath = "Internal/article";
 
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 int folderId = -1;
                 string artKey = string.Empty;
@@ -155,7 +155,7 @@ namespace Gcpe.ENewsletters.Templates
             string strTmp, strPath = "";
             int id = folderid;
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 while (id >= 0)
                 {
@@ -192,7 +192,7 @@ namespace Gcpe.ENewsletters.Templates
             string strPath = string.Empty;
 
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 strPath = (from f in db.folders
                            join N in db.newsletters on f.parentfolderid equals N.folderid
@@ -216,7 +216,7 @@ namespace Gcpe.ENewsletters.Templates
             {
                 Guid g = new Guid(guid);
 
-                using (ENewslettersEntities db = new ENewslettersEntities())
+                using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
                 {
                     int it = -1;
                     int? fromDb;
@@ -247,7 +247,7 @@ namespace Gcpe.ENewsletters.Templates
             try
             {
                 Guid g = new Guid(guid);
-                using (ENewslettersEntities db = new ENewslettersEntities())
+                using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
                 {
                     file imgFile = (from f in db.files where f.guid == g select f).FirstOrDefault();
 
@@ -271,7 +271,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             Model.Image imgInfo = new Model.Image();
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 file imgFile = (from f in db.files.Where(x => x.fname.Contains(name)) select f).FirstOrDefault();
 
@@ -310,7 +310,7 @@ namespace Gcpe.ENewsletters.Templates
             //split array into 2 or 3
             string[] pathComponents = path.Split(new Char[] { '/' });
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 int eId;
                 string editionFolderName = string.Empty;
@@ -361,7 +361,7 @@ namespace Gcpe.ENewsletters.Templates
             if (path.Contains("/edition"))
             {
                 var id = GetEditionIdFromEncodedUrl(path);
-                using (var db = new ENewslettersEntities())
+                using (var db = TemplateDb.eNewslettersEntities)
                 {
                     var edition = (from e in db.editions
                                    join n in db.newsletters on e.newsletterid equals n.newsletterid
@@ -393,7 +393,7 @@ namespace Gcpe.ENewsletters.Templates
             //split array into 4
             string[] pathComponents = path.Split(new Char[] { '/' });
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 int aId;
                 string editionFolderName = string.Empty;
@@ -460,7 +460,7 @@ namespace Gcpe.ENewsletters.Templates
             string editionKey = pathComponents[1];
             string articleKey = pathComponents[2];
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 int aId;
                 aId = (from art in db.articles.Where(x => x.active != 99)
@@ -479,7 +479,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             int newsletterid;
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 newsletterid = (from newsletter in db.newsletters
                                 where newsletter.key == key && newsletter.nlStatus != (int)NewsletterStatus.Deleted
@@ -493,7 +493,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             int editionId;
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 editionId = (from edition in db.editions
                              join newsletter in db.newsletters on edition.newsletterid equals newsletter.newsletterid

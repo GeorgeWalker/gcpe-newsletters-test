@@ -67,7 +67,7 @@ namespace Gcpe.ENewsletters.Templates
             string name = string.Empty;
 
             int newsletterTemplateId;
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 var x = (from e in db.editions
                          where e.editionid == editionId
@@ -564,7 +564,7 @@ namespace Gcpe.ENewsletters.Templates
         {
             string name = string.Empty;
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 var file = (from f in db.files
                             where f.guid == new Guid(id)

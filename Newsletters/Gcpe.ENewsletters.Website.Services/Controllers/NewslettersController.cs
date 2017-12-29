@@ -1,5 +1,6 @@
 ﻿using Gcpe.ENewsletters.Data.Entity;
 using Gcpe.ENewsletters.Providers;
+using Gcpe.ENewsletters.Templates.Model;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Gcpe.ENewsletters.Controllers
         {
             this.db = db;
             this.newsroom = new Newsroom(db);
+            TemplateDb.eNewslettersEntities = db;
         }
         
         

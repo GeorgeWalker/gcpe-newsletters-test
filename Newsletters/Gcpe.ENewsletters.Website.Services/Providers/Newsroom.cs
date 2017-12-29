@@ -254,8 +254,7 @@ namespace Gcpe.ENewsletters.Providers
         /// <returns>Newsletter Name and Default Distribution List Name</returns>
         public List<NewsletterList> GetNewsletters_PublicOnly_WithSubscribe()
         {
-            using (ENewslettersEntities db = new ENewslettersEntities())
-            {
+            
                 return
                     (
                         from n in db.newsletters
@@ -279,7 +278,7 @@ namespace Gcpe.ENewsletters.Providers
                             NewsletterDefaultDistributionListId = g.Key.newsletterid
                         }
                     ).ToList();
-            }
+            
         }
 
         /*

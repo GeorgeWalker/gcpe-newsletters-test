@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 namespace Gcpe.ENewsletters.Templates.Model
 {
     using Gcpe.ENewsletters.Data.Entity;
+    public class TemplateDb
+    {
+        public static ENewslettersEntities eNewslettersEntities;
+        
+    }
+    
 
     public enum BoxTypeOptions
     {

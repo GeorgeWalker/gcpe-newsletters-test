@@ -39,7 +39,7 @@ namespace Gcpe.ENewsletters.Templates
             DateTime? articleDate;
             string articleContent;
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 article a = (from x in db.articles where x.articleid == articleId select x).FirstOrDefault();
                 int editionID = a.editionid.Value;
@@ -71,7 +71,7 @@ namespace Gcpe.ENewsletters.Templates
             string footer = string.Empty;
 
 
-            using (ENewslettersEntities db = new ENewslettersEntities())
+            using (ENewslettersEntities db = TemplateDb.eNewslettersEntities)
             {
                 newslettertemplate template = (from a in db.articles
                                                join e in db.editions on a.editionid equals e.editionid
