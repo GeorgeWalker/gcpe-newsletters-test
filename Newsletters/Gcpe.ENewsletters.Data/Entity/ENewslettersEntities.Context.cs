@@ -24,6 +24,7 @@ namespace Gcpe.ENewsletters.Data.Entity
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<user>();
+            modelBuilder.Ignore<NewsletterTemplatesBannerImage>();
         }
 
         public virtual DbSet<approver> approvers { get; set; }
