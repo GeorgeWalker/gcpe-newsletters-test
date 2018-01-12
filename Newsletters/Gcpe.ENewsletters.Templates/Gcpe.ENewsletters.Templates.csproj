@@ -6,6 +6,7 @@
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
+	<ProjectGuid>{67312AA5-E37F-418C-B436-387FE717E67F}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>

@@ -11,6 +11,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <ApplicationIcon />
     <StartupObject />
+	<ProjectGuid>{8141BDE5-4C52-436F-8D98-4F7A79149C80}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0'">
